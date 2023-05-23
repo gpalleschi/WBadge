@@ -1,0 +1,6 @@
+package com.skyballs.badge
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
