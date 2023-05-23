@@ -542,7 +542,12 @@ class DayProvider extends ChangeNotifier {
            resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]] = TimeUtility.addTime(resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]], TimeUtility.diffHHMITime(resumeDay[dayToCompute][labelResume[IDX_TOT_CAFETERIA]],paramProvider.max_cont_cafeteria));
 
          } else {
-           resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]] = TimeUtility.subTime(resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]], resumeDay[dayToCompute][labelResume[IDX_TOT_CAFETERIA]]);
+           String newTimeExit = TimeUtility.subTime(resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]], resumeDay[dayToCompute][labelResume[IDX_TOT_CAFETERIA]]);
+           if ( TimeUtility.diffMinTime(newTimeExit, paramProvider.min_time_exit) < 0 ) {
+             resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]] = paramProvider.min_time_exit;
+           } else {
+             resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]] = newTimeExit;
+           }
          }
          computeResume0(paramProvider, dayToCompute); 
 
