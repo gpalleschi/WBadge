@@ -313,20 +313,6 @@ class DayProvider extends ChangeNotifier {
        }
   }
 
-  // Return time for a typeTimeStamp
-  String getForTypeTimeStamp(int typeTimeStamp) {
-       int index;
-       for(index=0;index<currentTimeStamps.length;index++) {
-          if ( currentTimeStamps[index].type == typeTimeStamp ) break;
-       }
-
-       if ( index == currentTimeStamps.length ) {
-          return '';
-       } else {
-          return currentTimeStamps[index].time;
-       }
-  }
-
   // Centralized Managment TypeTimeStamp with modality = 0 for button or 1 for update time
   // int setForTypeTimeStamp(int typeTimeStamp, String time, int modality) {
   void setForTypeTimeStamp(int typeTimeStamp) {
@@ -502,6 +488,8 @@ class DayProvider extends ChangeNotifier {
     resumeDay[dayToCompute].updateAll((k,v) => v = ''); 
 
     List<TimeStamp> timeStampsToCompute = timeStamps.where((ts) => ts.day == dayToCompute).toList();
+
+    // print('ts to compute : ${timeStampsToCompute.toString()}');
     for(int index=0; index<timeStampsToCompute.length; index++) {
 
       if ( timeStampsToCompute[index].type == TypeTimeStamp.ENTRANCE ) {
@@ -521,7 +509,7 @@ class DayProvider extends ChangeNotifier {
 
       if ( timeStampsToCompute[index].type == TypeTimeStamp.END_CAFETERIA ) {
 
-         final String startTimeCaf = getForTypeTimeStamp(TypeTimeStamp.START_CAFETERIA);
+         final String startTimeCaf = timeStampsToCompute[index-1].time;
 
          if ( startTimeCaf != '' ) {
             int iTotCafeteria = TimeUtility.diffMinTime(timeStampsToCompute[index].time, startTimeCaf); 
@@ -580,19 +568,26 @@ class DayProvider extends ChangeNotifier {
 
          String sTotDay = TimeUtility.diffHHMITime(timeStampsToCompute[index].time, timeStampsToCompute[0].time).toString();
          int mTotDay = TimeUtility.getMin(sTotDay);
+        //  print('mTotDay : $mTotDay');
          int iResumeDay = TimeUtility.diffMinTime(timeStampsToCompute[index].time, timeStampsToCompute[0].time)-TimeUtility.getMin(paramProvider.total_day);
+        //  print('iResumeDay 1 : $iResumeDay');
          if ( resumeDay[dayToCompute][labelResume[IDX_CAF_BALANCE]] == '' ) {
+            // print('Caf blanca ');
             resumeDay[dayToCompute][labelResume[IDX_CAF_BALANCE]] = (TimeUtility.getMin(paramProvider.max_cafeteria)*-1).toString();
             resumeDay[dayToCompute][labelResume[IDX_TOT_CAFETERIA]] = paramProvider.max_cafeteria;
             mTotDay += TimeUtility.getMin(paramProvider.max_cont_cafeteria)*-1;
          } else {
+            // print('Caf : ' + resumeDay[dayToCompute][labelResume[IDX_CAF_BALANCE]]);
             mTotDay += int.parse(resumeDay[dayToCompute][labelResume[IDX_CAF_BALANCE]]);
             iResumeDay += TimeUtility.getMin(paramProvider.max_cont_cafeteria) - TimeUtility.getMin(resumeDay[dayToCompute][labelResume[IDX_TOT_CAFETERIA]]);
             iResumeDay -= TimeUtility.getMin(resumeDay[dayToCompute][labelResume[IDX_TOT_PAUSES]]);
          }
+        //  print('iResumeDay 2 : $iResumeDay');
          resumeDay[dayToCompute][labelResume[IDX_TOT_HOURS]] = TimeUtility.getHHMMFromMin(mTotDay);
 
          resumeDay[dayToCompute][labelResume[IDX_DAY_BALANCE]] = iResumeDay.toString();
+
+        //  print('iResumeDay : $iResumeDay');
 
          // Colors 
 

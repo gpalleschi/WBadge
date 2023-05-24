@@ -43,4 +43,9 @@ class TimeStamp {
         "type": type,
         "time": time,
     };
+
+    @override
+    String toString() {
+           return 'id: $id day: $day type: $type time: $time';
+    }
 }
