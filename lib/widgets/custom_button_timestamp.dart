@@ -5,6 +5,7 @@ import 'package:badge/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_alarm_clock/flutter_alarm_clock.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomButtonTimeStamp extends StatelessWidget {
   final String label;
@@ -49,7 +50,7 @@ class CustomButtonTimeStamp extends StatelessWidget {
                     // Start Break
                     if ( typeTimeStamp == TypeTimeStamp.START_BREAK && paramProvider.check_tot_breaks == true && dayProvider.getCurrentBreaks()+1 > int.parse(paramProvider.max_tot_breaks) ) {
                        await showDialog<String>( context: context,
-                                             builder: (BuildContext context) => const CustomAlertDialog(title: 'Allarme Max Pause', content: 'Superato il numero massimo di pause giornaliere', type: 2),
+                                             builder: (BuildContext context) => CustomAlertDialog(title: AppLocalizations.of(context)!.titlealarmbreaks, content: AppLocalizations.of(context)!.msgalarmbreaks, type: 2),
                                              );
                     }
 
@@ -57,17 +58,17 @@ class CustomButtonTimeStamp extends StatelessWidget {
                     if ( typeTimeStamp == TypeTimeStamp.START_CAFETERIA && paramProvider.check_alarm_caf == true ) {
                        String timeToAlarm = TimeUtility.addTime(timeToAdd,paramProvider.min_cafeteria);
                        String? ris = await showDialog<String>( context: context,
-                                             builder: (BuildContext context) => CustomAlertDialog(title: 'Allarme Fine Mensa', content: 'Vuoi Attivare l\'allarme di fine mensa alle $timeToAlarm ?', type: 1),
+                                             builder: (BuildContext context) => CustomAlertDialog(title: AppLocalizations.of(context)!.titlealarmlunch, content: AppLocalizations.of(context)!.msgalarmlunch(timeToAlarm), type: 1),
                                              );
                        if ( ris == 'SI' ) {
-                          FlutterAlarmClock.createTimer(TimeUtility.getMin(paramProvider.min_cafeteria)*60,title: 'Fine Mensa');
+                          FlutterAlarmClock.createTimer(TimeUtility.getMin(paramProvider.min_cafeteria)*60,title: AppLocalizations.of(context)!.endlunch);
                        }                       
 
                     }
 
                     if ( typeTimeStamp == TypeTimeStamp.ENTRANCE && TimeUtility.getHourMinute(TimeOfDay.fromDateTime(DateTime.now())).compareTo(paramProvider.min_time_entrance) < 0 ) {
                        await showDialog<String>( context: context,
-                              builder: (BuildContext context) => CustomAlertDialog(title: 'Warning', content: 'L\'orario minimo di ingresso è ${paramProvider.min_time_entrance} pertanto viene impostato a tale orario.', type: 0),
+                              builder: (BuildContext context) => CustomAlertDialog(title: AppLocalizations.of(context)!.warning, content: AppLocalizations.of(context)!.msgwarnbefminhourenter(paramProvider.min_time_entrance), type: 0),
                        );
                        timeToAdd = paramProvider.min_time_entrance;
                     }

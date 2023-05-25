@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class ParamProvider extends ChangeNotifier {
 
-  String language = 'It';
+  String language = 'it';
 
   final supportedLanguages = [ 'Italiano', 'English', 'Español' ];
 
@@ -113,7 +113,7 @@ class ParamProvider extends ChangeNotifier {
        max_cafeteria = await getParam('max_cafeteria', max_cafeteria);
        min_cont_cafeteria = await getParam('min_cont_cafeteria', min_cont_cafeteria);
        max_cont_cafeteria = await getParam('max_cont_cafeteria', max_cont_cafeteria);
-       min_time_entrance = await getParam('min_time_entrance', max_cont_cafeteria);
+       min_time_entrance = await getParam('min_time_entrance', min_time_entrance);
        min_hour_entrance = int.parse(min_time_entrance.split(":")[0]);
        min_hour_entrance = int.parse(min_time_entrance.split(":")[1]);
        min_time_exit = await getParam('min_time_exit', min_time_exit);

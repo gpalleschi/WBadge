@@ -1,9 +1,11 @@
+import 'package:badge/main.dart';
 import 'package:badge/providers/day_provider.dart';
 import 'package:badge/providers/param_provider.dart';
 import 'package:badge/utility/time_utility.dart';
 import 'package:badge/widgets/custom_navigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -18,11 +20,11 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Row(
-            children: const [
-              Image(image: AssetImage('assets/iconBadge.png'), width: 40,),
+            children: [
+              const Image(image: AssetImage('assets/iconBadge.png'), width: 40,),
               Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text('W-BADGE - Impostazioni'),
+                padding: const EdgeInsets.only(left: 10),
+                child: Text('W-BADGE - ${AppLocalizations.of(context)!.settings}'),
               ),
             ],
           ),
@@ -34,16 +36,16 @@ class SettingsPage extends StatelessWidget {
             padding: const EdgeInsets.only(top: 5.0, right: 10.0, left: 10.0),
             // Language
             child: Row(children: [
-              SizedBox(width: MediaQuery.of(context).size.width/2, child: const Text('Linguaggio ', style: TextStyle(color: Colors.indigo, fontSize: fontSize, fontWeight: FontWeight.bold),)),
+              SizedBox(width: MediaQuery.of(context).size.width/2, child: Text(AppLocalizations.of(context)!.language, style: const TextStyle(color: Colors.indigo, fontSize: fontSize, fontWeight: FontWeight.bold),)),
               const SizedBox(width: 5,),
               SizedBox(width: MediaQuery.of(context).size.width/2.5, child: SizedBox(
                 width: 40,
                 child: DropdownButton( 
                                 style : const TextStyle(color: Colors.indigo, fontSize: fontSize),
                                 value: paramProvider.language,
-                                items: const [DropdownMenuItem(value: "It", child: Text("Italiano")),
-                                        DropdownMenuItem(value: "En", child: Text("English")),
-                                        DropdownMenuItem(value: "Es", child: Text("Español")),], 
+                                items: [DropdownMenuItem(value: "it", child: Text(AppLocalizations.of(context)!.italian)),
+                                        DropdownMenuItem(value: "en", child: Text(AppLocalizations.of(context)!.english)),
+                                        DropdownMenuItem(value: "es", child: Text(AppLocalizations.of(context)!.spanish)),], 
                                         onChanged: (String? value) { 
                                           if ( value != null && value != '' ) {
                                              paramProvider.setParam('language', value);
@@ -57,20 +59,20 @@ class SettingsPage extends StatelessWidget {
           ),
          const Divider( height: 20, thickness: 3, endIndent: 0, color: Colors.indigo,),
             // total day
-          _RowParam(fontSize: fontSize, label: 'Orario Giorno', type: 'total_day', value: paramProvider.total_day,),
-          _RowParam(fontSize: fontSize, label: 'Ora Min. Ingresso', type: 'min_time_entrance', value: paramProvider.min_time_entrance,),
-          _RowParam(fontSize: fontSize, label: 'Ora Min. Uscita', type: 'min_time_exit', value: paramProvider.min_time_exit,),
+          _RowParam(fontSize: fontSize, label: AppLocalizations.of(context)!.hourday, type: 'total_day', value: paramProvider.total_day,),
+          _RowParam(fontSize: fontSize, label: AppLocalizations.of(context)!.hourminenter, type: 'min_time_entrance', value: paramProvider.min_time_entrance,),
+          _RowParam(fontSize: fontSize, label: AppLocalizations.of(context)!.hourminexit, type: 'min_time_exit', value: paramProvider.min_time_exit,),
          const Padding(
            padding: EdgeInsets.only(top: 5),
            child: Divider( height: 20, thickness: 3, endIndent: 0, color: Colors.indigo,),
          ),
-          _RowParam(fontSize: fontSize, label: 'Tempo Minimo Pranzo', type: 'min_cafeteria', value: paramProvider.min_cafeteria,),
-          _RowParam(fontSize: fontSize, label: 'Tempo Massimo Pranzo', type: 'max_cafeteria', value: paramProvider.max_cafeteria,),
-          _RowParam(fontSize: fontSize, label: 'Tempo Min. Pranzo Cont.', type: 'min_cont_cafeteria', value: paramProvider.min_cont_cafeteria,),
-          _RowParam(fontSize: fontSize, label: 'Tempo Max. Pranzo Cont.', type: 'max_cont_cafeteria', value: paramProvider.max_cont_cafeteria,),
+          _RowParam(fontSize: fontSize, label: AppLocalizations.of(context)!.mintimelunch, type: 'min_cafeteria', value: paramProvider.min_cafeteria,),
+          _RowParam(fontSize: fontSize, label: AppLocalizations.of(context)!.maxtimelunch, type: 'max_cafeteria', value: paramProvider.max_cafeteria,),
+          _RowParam(fontSize: fontSize, label: AppLocalizations.of(context)!.mintimelunchcont, type: 'min_cont_cafeteria', value: paramProvider.min_cont_cafeteria,),
+          _RowParam(fontSize: fontSize, label: AppLocalizations.of(context)!.maxtimelunchcont, type: 'max_cont_cafeteria', value: paramProvider.max_cont_cafeteria,),
          Padding(
       padding: const EdgeInsets.only(top: 5.0, right: 5.0, left: 10.0),
-      child: Row(children: [ SizedBox(width: MediaQuery.of(context).size.width/1.5, child: const Text('Richiesta Allarme per fine mensa', style: TextStyle(color: Colors.indigo, fontSize: fontSize, fontWeight: FontWeight.bold),)),
+      child: Row(children: [ SizedBox(width: MediaQuery.of(context).size.width/1.5, child: Text(AppLocalizations.of(context)!.reqalarmlunch, style: const TextStyle(color: Colors.indigo, fontSize: fontSize, fontWeight: FontWeight.bold),)),
          Switch(value: paramProvider.check_alarm_caf, 
                 activeColor: Colors.indigo,
                 onChanged: (value) { paramProvider.setParam('check_alarm_caf', value?'true':'false');})])),
@@ -80,14 +82,14 @@ class SettingsPage extends StatelessWidget {
          ),
          Padding(
       padding: const EdgeInsets.only(top: 5.0, right: 5.0, left: 10.0),
-      child: Row(children: [ SizedBox(width: MediaQuery.of(context).size.width/1.5, child: const Text('Allarme per superamento pause', style: TextStyle(color: Colors.indigo, fontSize: fontSize, fontWeight: FontWeight.bold),)),
+      child: Row(children: [ SizedBox(width: MediaQuery.of(context).size.width/1.5, child: Text(AppLocalizations.of(context)!.reqalarmmaxbreaks, style: const TextStyle(color: Colors.indigo, fontSize: fontSize, fontWeight: FontWeight.bold),)),
          Switch(value: paramProvider.check_tot_breaks, 
                 activeColor: Colors.indigo,
                 onChanged: (value) { paramProvider.setParam('check_tot_breaks', value?'true':'false');})])),
          // Totale Pause
          Padding(
       padding: const EdgeInsets.only(top: 5.0, right: 5.0, left: 10.0),
-      child: Row( children: [ SizedBox(width: MediaQuery.of(context).size.width/1.55, child: const Text('Massimo Numero Pause', style: TextStyle(color: Colors.indigo, fontSize: fontSize, fontWeight: FontWeight.bold),)),
+      child: Row( children: [ SizedBox(width: MediaQuery.of(context).size.width/1.55, child: Text(AppLocalizations.of(context)!.maxbreaks, style: const TextStyle(color: Colors.indigo, fontSize: fontSize, fontWeight: FontWeight.bold),)),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

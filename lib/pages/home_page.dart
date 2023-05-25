@@ -6,6 +6,7 @@ import 'package:badge/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -24,11 +25,11 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Row(
-            children: const [
+            children: [
               Image(image: AssetImage('assets/iconBadge.png'), width: 40,),
               Padding(
                 padding: EdgeInsets.only(left: 10),
-                child: Text('W-BADGE - Timbrature'),
+                child: Text('W-BADGE - ' + AppLocalizations.of(context)!.timestamps),
               ),
             ],
           ),
@@ -54,7 +55,7 @@ class HomePage extends StatelessWidget {
                 IconButton(icon: Icon(Icons.chevron_left_rounded, size: 30, color: dayProvider.selDay > 0 ? Colors.indigo : Colors.grey), onPressed: dayProvider.selDay == 0 ? null : () { dayProvider.selLeftDay(Provider.of<ParamProvider>(context, listen: false));},),
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
-                  child: Text(TimeUtility.getDayById(dayProvider.selDay), style: const TextStyle(color: Colors.indigo, fontSize: 25, fontWeight: FontWeight.bold),),
+                  child: Text(AppLocalizations.of(context)!.daysweek.split(':')[dayProvider.selDay], style: const TextStyle(color: Colors.indigo, fontSize: 25, fontWeight: FontWeight.bold),),
                 ),
                 IconButton(icon: Icon(Icons.chevron_right_rounded, size: 30, color: dayProvider.selDay < 6 ? Colors.indigo : Colors.grey), onPressed: dayProvider.selDay == 6 ? null : () { dayProvider.selRigthDay(Provider.of<ParamProvider>(context, listen: false));},),
                 ],)
@@ -73,14 +74,14 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                               CustomButtonTimeStamp(label: 'Entro Ora', iconData: Icons.input_rounded, typeTimeStamp: TypeTimeStamp.ENTRANCE, enabled: dayProvider.enableEntrance),
-                               CustomButtonTimeStamp(label: 'Inizio Mensa', iconData: Icons.restaurant_rounded, typeTimeStamp: TypeTimeStamp.START_CAFETERIA, enabled: dayProvider.enableStartCafeteria),
-                               CustomButtonTimeStamp(label: 'Inizio Pausa', iconData: Icons.coffee, typeTimeStamp: TypeTimeStamp.START_BREAK, enabled: dayProvider.enableStartBreak),
+                               CustomButtonTimeStamp(label: AppLocalizations.of(context)!.enternow, iconData: Icons.input_rounded, typeTimeStamp: TypeTimeStamp.ENTRANCE, enabled: dayProvider.enableEntrance),
+                               CustomButtonTimeStamp(label: AppLocalizations.of(context)!.startCaf, iconData: Icons.restaurant_rounded, typeTimeStamp: TypeTimeStamp.START_CAFETERIA, enabled: dayProvider.enableStartCafeteria),
+                               CustomButtonTimeStamp(label: AppLocalizations.of(context)!.startbreak, iconData: Icons.coffee, typeTimeStamp: TypeTimeStamp.START_BREAK, enabled: dayProvider.enableStartBreak),
                                ],),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceAround,children: [
-                               CustomButtonTimeStamp(label: 'Esco Ora', iconData: Icons.output_rounded, typeTimeStamp: TypeTimeStamp.EXIT, enabled: dayProvider.enableExit),
-                               CustomButtonTimeStamp(label: 'Fine Mensa', iconData: Icons.restaurant_rounded, typeTimeStamp: TypeTimeStamp.END_CAFETERIA, enabled: dayProvider.enableEndCafeteria),
-                               CustomButtonTimeStamp(label: 'Fine Pausa', iconData: Icons.coffee, typeTimeStamp: TypeTimeStamp.END_BREAK, enabled: dayProvider.enableEndBreak),
+                               CustomButtonTimeStamp(label: AppLocalizations.of(context)!.exitnow, iconData: Icons.output_rounded, typeTimeStamp: TypeTimeStamp.EXIT, enabled: dayProvider.enableExit),
+                               CustomButtonTimeStamp(label: AppLocalizations.of(context)!.endlunch, iconData: Icons.restaurant_rounded, typeTimeStamp: TypeTimeStamp.END_CAFETERIA, enabled: dayProvider.enableEndCafeteria),
+                               CustomButtonTimeStamp(label: AppLocalizations.of(context)!.endbreak, iconData: Icons.coffee, typeTimeStamp: TypeTimeStamp.END_BREAK, enabled: dayProvider.enableEndBreak),
                                ],),
               ],
              )
@@ -101,7 +102,7 @@ class HomePage extends StatelessWidget {
           header: Column(
                                 children: [
                                   const _TitleDayResume(),
-                                  _RowDayResume(dayProvider: dayProvider, label: dayProvider.labelResume[0], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[0]], color: dayProvider.getColor(dayProvider.IDX_DAY_BALANCE),),
+                                  _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[0], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[0]], color: dayProvider.getColor(dayProvider.IDX_DAY_BALANCE),),
                                 ],
                               ),
           theme: const ExpandableThemeData(iconColor: Colors.indigo, iconSize: 30),
@@ -112,7 +113,7 @@ class HomePage extends StatelessWidget {
                 if ( index == 0 ) {
                   return Container();
                 } else {
-                  return _RowDayResume(dayProvider: dayProvider, label: dayProvider.labelResume[index], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[index]], color: dayProvider.colorValue[index] > 0 ? Colors.indigo : Colors.red);
+                  return _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[index], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[index]], color: dayProvider.colorValue[index] > 0 ? Colors.indigo : Colors.red);
                 //   Padding(
                 //     padding: const EdgeInsets.all(5.0),
                 //     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,children: [
@@ -133,8 +134,8 @@ class HomePage extends StatelessWidget {
             ),
         // Lista Orari
         Row(mainAxisAlignment: MainAxisAlignment.spaceAround,children: [
-                    Container(width: 50, alignment: Alignment.center, child: const Text('Tipo', style: TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold),),),
-                    const SizedBox(width: 70, child: Text('Orario', style: TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold) )),
+                    Container(width: 55, alignment: Alignment.center, child: Text(AppLocalizations.of(context)!.type, style: const TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold),),),
+                    SizedBox(width: 70, child: Text(AppLocalizations.of(context)!.hour, style: const TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold) )),
                     const SizedBox(width: 50, child: Text('')),
                     const SizedBox(width: 50, child: Text('')),
         ]),
@@ -145,7 +146,7 @@ class HomePage extends StatelessWidget {
             
             List.generate(dayProvider.currentTimeStamps.length, (index) {
               return Row(mainAxisAlignment: MainAxisAlignment.spaceAround,children: [
-                               SizedBox(width: 50, child: dayProvider.getIcon(dayProvider.currentTimeStamps[index].type, 35)),
+                               SizedBox(width: 55, child: dayProvider.getIcon(dayProvider.currentTimeStamps[index].type, 35)),
                                Container(width: 70, alignment: Alignment.center, child: Text(dayProvider.currentTimeStamps[index].time, style: const TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold, fontSize: 20 ),)),
                                SizedBox(width: 50, child: CustomButtonClock(index: index,)),
                                const SizedBox(width: 20,),
@@ -153,7 +154,7 @@ class HomePage extends StatelessWidget {
                                  padding: const EdgeInsets.only(bottom: 4.0),
                                  child: IconButton(icon: const Icon(Icons.delete_rounded, size: 40, color: Colors.indigo), onPressed: () async { 
                                   String? ris = await showDialog<String>( context: context,
-                                                      builder: (BuildContext context) => const CustomAlertDialog(title: 'Confermi', content: 'Cancellazione questa timbratura e successive?', type: 1),
+                                                      builder: (BuildContext context) => CustomAlertDialog(title: AppLocalizations.of(context)!.confirm, content: AppLocalizations.of(context)!.confirmdelmsg, type: 1),
                                                     );
                                   if ( ris == 'SI' ) {
                                      dayProvider.deleleTimeStamp(index, paramProvider);
@@ -169,7 +170,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 50,),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [ElevatedButton(onPressed: () { dayProvider.insertDefaultTimeStamps(Provider.of<ParamProvider>(context, listen: false)); },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo, elevation: 10 ),
-                  child: const Text('Inserisci Orario Default', style: TextStyle(color: Colors.white, fontSize: 20),),)],)
+                  child: Text(AppLocalizations.of(context)!.insertdeftime, style: const TextStyle(color: Colors.white, fontSize: 20),),)],)
                 ],
               )
             ],
@@ -195,8 +196,8 @@ class _TitleDayResume extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
-      child: Row( mainAxisAlignment: MainAxisAlignment.start, children: const [
-      Text('Info Giorno', style: TextStyle(color: Colors.indigo, fontSize: 28, fontWeight: FontWeight.bold),),
+      child: Row( mainAxisAlignment: MainAxisAlignment.start, children: [
+      Text(AppLocalizations.of(context)!.infoday, style: const TextStyle(color: Colors.indigo, fontSize: 28, fontWeight: FontWeight.bold),),
       ],),
     );
   }

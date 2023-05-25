@@ -1,7 +1,10 @@
+import 'package:badge/l10n/l10n.dart';
 import 'package:badge/pages/pages.dart';
 import 'package:badge/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   // // Ci assicuriamo che sia inizializzato con il contesto
@@ -28,8 +31,11 @@ class MyApp extends StatelessWidget {
 class _BodyApp extends StatelessWidget {
   const _BodyApp();
 
+
   @override
   Widget build(BuildContext context) {
+
+    final paramProvider = Provider.of<ParamProvider>(context);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -52,6 +58,15 @@ class _BodyApp extends StatelessWidget {
           elevation: 2 
         ),
       ),
+      supportedLocales: L10n.all,
+      locale: Locale(paramProvider.language),
+      //locale: Locale('en'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate, // Add this line
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       
     );
   }

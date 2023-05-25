@@ -7,6 +7,7 @@ import 'package:badge/providers/day_provider.dart';
 import 'package:badge/providers/param_provider.dart';
 import 'package:badge/utility/time_utility.dart';
 import 'package:badge/widgets/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ResumePage extends StatelessWidget {
   const ResumePage({super.key});
@@ -23,11 +24,11 @@ class ResumePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Row(
-            children: const [
-              Image(image: AssetImage('assets/iconBadge.png'), width: 40,),
+            children: [
+              const Image(image: AssetImage('assets/iconBadge.png'), width: 40,),
               Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text('W-BADGE - Riepilogo'),
+                padding: const EdgeInsets.only(left: 10),
+                child: Text('W-BADGE - ${AppLocalizations.of(context)!.resume}'),
               ),
             ],
           ),
@@ -41,7 +42,7 @@ class ResumePage extends StatelessWidget {
                 child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Saldo Settimana', style: TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold),),
+                  Text(AppLocalizations.of(context)!.balanceweek, style: const TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold),),
                   Text(totWeekBalance.toString(),style: TextStyle(fontSize: 24, color: totWeekBalance >= 0 ? Colors.indigo : Colors.red, fontWeight: FontWeight.bold), )
                 ],
                           ),
@@ -60,18 +61,18 @@ class ResumePage extends StatelessWidget {
                       return ExpandablePanel(
                               header:  Column(
                                 children: [
-                                  _TitleDayOfWeek(dayOfWeek: TimeUtility.getDayById(index),),
-                                  _RowResumeWeek(dayProvider: dayProvider, label: 'Saldo', value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]], color: dayProvider.getColor(dayProvider.IDX_DAY_BALANCE),),
+                                  _TitleDayOfWeek(dayOfWeek: AppLocalizations.of(context)!.daysweek.split(":")[index] ),
+                                  _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.balance, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]], color: dayProvider.getColor(dayProvider.IDX_DAY_BALANCE),),
                                 ],
                               ),
                               theme: const ExpandableThemeData(iconColor: Colors.indigo, iconSize: 30),
                               expanded: Center(
                                 child: Column(
                                   children: [
-                                    _RowResumeWeek(dayProvider: dayProvider, label: 'Totale Ore', value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_HOURS]], color: dayProvider.getColor(dayProvider.IDX_TOT_HOURS)),
-                                    _RowResumeWeek(dayProvider: dayProvider, label: 'Totale Mensa', value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_CAFETERIA]], color: dayProvider.getColor(dayProvider.IDX_TOT_CAFETERIA)),
-                                    _RowResumeWeek(dayProvider: dayProvider, label: 'Numero Pause', value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_NUM_PAUSES]], color: dayProvider.getColor(dayProvider.IDX_NUM_PAUSES)),
-                                    _RowResumeWeek(dayProvider: dayProvider, label: 'Totale Pause', value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_PAUSES]],color: dayProvider.getColor(dayProvider.IDX_TOT_PAUSES)),
+                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totalhours, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_HOURS]], color: dayProvider.getColor(dayProvider.IDX_TOT_HOURS)),
+                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totallunch, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_CAFETERIA]], color: dayProvider.getColor(dayProvider.IDX_TOT_CAFETERIA)),
+                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.numberbreaks, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_NUM_PAUSES]], color: dayProvider.getColor(dayProvider.IDX_NUM_PAUSES)),
+                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totalbreaks, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_PAUSES]],color: dayProvider.getColor(dayProvider.IDX_TOT_PAUSES)),
                                   ],
                                 ),
                                   ), collapsed: Container(),
@@ -91,7 +92,7 @@ class ResumePage extends StatelessWidget {
                 child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Totale Ore Settimana', style: TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold),),
+                  Text(AppLocalizations.of(context)!.totalhoursweek, style: const TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold),),
                   Text(dayProvider.getWeekTotHours(),style: const TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold), )
                 ],
                           ),

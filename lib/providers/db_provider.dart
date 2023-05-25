@@ -32,7 +32,7 @@ class DBProvider {
     // print('path : $path');
     return await openDatabase(
        path,
-       version: 3,
+       version: 4,
        onOpen: (db) {
        },
        onCreate: ( Database db, int version ) async {
@@ -48,7 +48,8 @@ class DBProvider {
          // Settings table : setting_type (TEXT, INT, DOUBLE, BOOLEAN)
          await db.execute(''' CREATE TABLE WBadge_settings ( id INTEGER PRIMARY KEY, setting_name TEXT, setting_type TEXT, setting_value TEXT );''');
         // Default Settings
-         await db.insert('WBadge_settings', {'setting_name' : 'language', 'setting_value' : 'It', 'setting_type' : 'TEXT'});
+         await db.insert('WBadge_settings', {'setting_name' : 'language', 'setting_value' : 'it', 'setting_type' : 'TEXT'});
+         await db.insert('WBadge_settings', {'setting_name' : 'theme', 'setting_value' : 'default', 'setting_type' : 'TEXT'});
          await db.insert('WBadge_settings', {'setting_name' : 'total_day', 'setting_value' : '08:38', 'setting_type' : 'TEXT'});
          await db.insert('WBadge_settings', {'setting_name' : 'min_cafeteria', 'setting_value' : '00:25', 'setting_type' : 'TEXT'});
          await db.insert('WBadge_settings', {'setting_name' : 'max_cafeteria', 'setting_value' : '01:00', 'setting_type' : 'TEXT'});

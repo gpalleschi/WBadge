@@ -3,6 +3,7 @@ import 'package:badge/utility/utility.dart';
 import 'package:badge/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomButtonClock extends StatelessWidget {
   final int index;
@@ -20,9 +21,9 @@ class CustomButtonClock extends StatelessWidget {
         if ( time != null ) {
           if ( TimeUtility.getHourMinute(time).compareTo(paramProvider.min_time_entrance) < 0 ) {
             await showDialog<String>( context: context,
-                              builder: (BuildContext context) => CustomAlertDialog(title: 'Warning', content: 'L\'orario minimo di ingresso è ${paramProvider.min_time_entrance} pertanto viene impostato a tale orario.', type: 0),
+                              builder: (BuildContext context) => CustomAlertDialog(title: AppLocalizations.of(context)!.warning, content: AppLocalizations.of(context)!.msgwarnbefminhourenter(paramProvider.min_time_entrance), type: 0),
                              );
-            time = TimeOfDay(hour: paramProvider.min_hour_entrance, minute: paramProvider.min_min_entrance);
+            time = TimeOfDay(hour: int.parse(paramProvider.min_time_entrance.split(":")[0]), minute: int.parse(paramProvider.min_time_entrance.split(":")[1]));
           }
 
           final List<String> resUpdate = await dayProvider.updateTimeStamp(index, TimeUtility.getHourMinute(time), paramProvider);
@@ -31,17 +32,17 @@ class CustomButtonClock extends StatelessWidget {
             String message = '';
 
             if ( resUpdate[0] != '' && resUpdate[1] != '' ) {
-              message = 'La timbratura inserita non può essere precendete alle ${resUpdate[0]} e successiva alle ${resUpdate[1]}.';
+              message = AppLocalizations.of(context)!.msgerrtimestampbefaft(resUpdate[0],resUpdate[1]);
             } else {
               if ( resUpdate[0] != '' ) {
-                 message = 'La timbratura inserita non può essere precendete alle ${resUpdate[0]}.';
+                 message = AppLocalizations.of(context)!.msgerrtimestampbef(resUpdate[0]);
               } else {
-                 message = 'La timbratura inserita non può essere successiva alle ${resUpdate[1]}.';
+                 message = AppLocalizations.of(context)!.msgerrtimestampaft(resUpdate[1]);
               }
             }
             // ignore: use_build_context_synchronously
             await showDialog<String>( context: context,
-                              builder: (BuildContext context) => CustomAlertDialog(title: 'Errore', content: message, type: 0),
+                              builder: (BuildContext context) => CustomAlertDialog(title: AppLocalizations.of(context)!.error, content: message, type: 0),
                              );
           }
 
