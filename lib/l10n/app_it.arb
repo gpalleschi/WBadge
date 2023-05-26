@@ -1,5 +1,6 @@
 {
     "language": "Lingua",
+    "theme": "Tema",
     "timestamps": "Timbrature",
     "enternow": "Entro Ora",
     "exitnow": "Esco Ora",
@@ -53,5 +54,6 @@
     "titlealarmlunch" : "Allarme Fine Mensa",
     "msgalarmlunch" : "Vuoi Attivare l''allarme di fine mensa alle {timeToAlarm} ?",
     "timerendlunch" : "Fine Mensa",
-    "warning" : "Warning"
+    "warning" : "Warning",
+    "version" : "Versione"
 }

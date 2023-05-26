@@ -1,14 +1,48 @@
 import 'package:badge/models/time_stamp.dart';
 import 'package:badge/models/type_time_stamp.dart';
 import 'package:badge/providers/db_provider.dart';
+import 'package:badge/themes/themes.dart';
 import 'package:badge/utility/time_utility.dart';
 import 'package:flutter/material.dart';
 
 class ParamProvider extends ChangeNotifier {
 
+  // Version to change
+  String version = "1.0.0";
+  String skyballs = "Skyballs 2023";
+
+  bool flagLoad = false; 
   String language = 'it';
 
   final supportedLanguages = [ 'Italiano', 'English', 'Español' ];
+
+  ThemeData currentThemeData = Default.themeData;
+  String selectedTheme = 'default';
+
+  final Map<String, ThemeData> themes = {
+    'default' : Default.themeData,
+    'dark' : Dark.themeData,
+    'tim' : Tim.themeData,
+    'ireland' : Ireland.themeData,
+    'pink' : Pink.themeData,
+    'dracula' : Dracula.themeData
+  };
+
+  Map<String, ThemeData> get getThemes {
+    return themes;
+  }
+
+  String get selTheme {
+    return selectedTheme;
+  }
+
+  ThemeData get currThemeData {
+    return currentThemeData;
+  }
+
+  set setCurrentThemeData(String nameTheme) {
+    currentThemeData = themes[nameTheme]!;
+  }
 
   bool check_alarm_caf = false;
   bool check_tot_breaks = false;
@@ -35,12 +69,14 @@ class ParamProvider extends ChangeNotifier {
 
   // Costructor
   ParamProvider() {
+    flagLoad = true; 
     setParams();
     defaultTimeStamps = [TimeStamp(type: TypeTimeStamp.ENTRANCE, time:min_time_entrance),
                                        TimeStamp(type: TypeTimeStamp.START_CAFETERIA, time:"12:30"),
                                        TimeStamp(type: TypeTimeStamp.END_CAFETERIA, time:TimeUtility.addTime("12:30", min_cont_cafeteria)),
                                        TimeStamp(type: TypeTimeStamp.EXIT, time:min_time_exit),
                         ];
+
   }
 
   Future<String> getParam(String name, String defaultValue) async {
@@ -61,6 +97,10 @@ class ParamProvider extends ChangeNotifier {
     switch(type) {
       case 'language':
            language = value;
+           break;
+      case 'theme':
+           selectedTheme = value;
+           currentThemeData = themes[value]!;
            break;
       case 'check_alarm_caf':
            check_alarm_caf = (value == 'true') ? true : false;
@@ -108,6 +148,8 @@ class ParamProvider extends ChangeNotifier {
 
   Future<bool> setParams() async {
        language = await getParam('language', language);
+       selectedTheme = await getParam('theme', selectedTheme);
+       currentThemeData = themes[selectedTheme]!;
        total_day = await getParam('total_day', total_day);
        min_cafeteria = await getParam('min_cafeteria', min_cafeteria);
        max_cafeteria = await getParam('max_cafeteria', max_cafeteria);
@@ -120,6 +162,8 @@ class ParamProvider extends ChangeNotifier {
        check_tot_breaks = await getParam('check_tot_breaks', check_tot_breaks.toString()) == 'false' ? false : true;
        check_alarm_caf = await getParam('check_alarm_caf', check_alarm_caf.toString()) == 'false' ? false : true;
        max_tot_breaks = await getParam('max_tot_breaks', max_tot_breaks);
+       flagLoad = false;
+       notifyListeners();
        return true;
   }
 

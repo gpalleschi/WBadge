@@ -1,5 +1,6 @@
 {
     "language": "Language",
+    "theme": "Theme",
     "timestamps": "Timestamps",
     "enternow": "Enter Now",
     "exitnow": "Exit Now",
@@ -53,6 +54,6 @@
     "titlealarmlunch" : "End Lunch Alarm",
     "msgalarmlunch" : "Do you want to activate the end of lunch alarm at {timeToAlarm} ?",
     "timerendlunch" : "End Lunch",
-    "warning" : "Warning"
-
+    "warning" : "Warning",
+    "version" : "Version"
 }

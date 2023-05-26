@@ -20,11 +20,11 @@ class CustomButtonTimeStamp extends StatelessWidget {
     final dayProvider = Provider.of<DayProvider>(context);
     final paramProvider = Provider.of<ParamProvider>(context);
 
-    Color color = Colors.indigo;
+    Color? color = Theme.of(context).iconTheme.color;
     if ( typeTimeStamp == TypeTimeStamp.EXIT || 
          typeTimeStamp == TypeTimeStamp.END_BREAK || 
          typeTimeStamp == TypeTimeStamp.END_CAFETERIA ) {
-      color = Colors.red;
+      color = Theme.of(context).hintColor;
     }
 
     if ( !enabled ) {
@@ -79,7 +79,7 @@ class CustomButtonTimeStamp extends StatelessWidget {
                   icon: Icon(iconData, color: color, size: 50,),
                  ),
                              Padding(padding: const EdgeInsets.only(left: 20, top: 5,),
-                                     child: Text(label, style: const TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold, fontSize: 15), ),
+                                     child: Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15), ),
                                 )
                                ],);
   }

@@ -44,7 +44,7 @@ class CustomNavigationBar extends StatelessWidget {
               }
            }
 
-           if ( resDialog == 'SI' ) {
+           if ( resDialog == AppLocalizations.of(context)!.yes ) {
                   // If in day page
                   if ( dayProvider.menuSelected == 0 ) {
                      dayProvider.reset();
@@ -66,16 +66,16 @@ class CustomNavigationBar extends StatelessWidget {
            dayProvider.setMenuSelected(3);
         }
       },
-      elevation: 5,
+      //elevation: 5,
       currentIndex: dayProvider.menuSelected,
-      backgroundColor: Colors.indigo,
+      //backgroundColor: Colors.indigo,
       fixedColor: Colors.white,
-      unselectedItemColor: Colors.grey[500],
+      //unselectedItemColor: Colors.grey[500],
       items: [
-      BottomNavigationBarItem(icon: const Icon(Icons.calendar_today, size: 30, color: Colors.white), label: AppLocalizations.of(context)!.day),
-      BottomNavigationBarItem(icon: const Icon(Icons.restore_rounded, size: 30, color: Colors.white), label: AppLocalizations.of(context)!.reset ),
-      BottomNavigationBarItem(icon: const Icon(Icons.table_chart, size: 30, color: Colors.white), label: AppLocalizations.of(context)!.resume),
-      BottomNavigationBarItem(icon: const Icon(Icons.settings, size: 30, color: Colors.white), label: AppLocalizations.of(context)!.settings),
+      BottomNavigationBarItem(icon: const Icon(Icons.calendar_today, size: 30,), label: AppLocalizations.of(context)!.day),
+      BottomNavigationBarItem(icon: const Icon(Icons.restore_rounded, size: 30,), label: AppLocalizations.of(context)!.reset ),
+      BottomNavigationBarItem(icon: const Icon(Icons.table_chart, size: 30,), label: AppLocalizations.of(context)!.resume),
+      BottomNavigationBarItem(icon: const Icon(Icons.settings, size: 30,), label: AppLocalizations.of(context)!.settings),
       ]);
   }
 }

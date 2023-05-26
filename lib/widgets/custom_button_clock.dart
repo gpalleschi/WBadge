@@ -48,6 +48,6 @@ class CustomButtonClock extends StatelessWidget {
 
         }
 
-    }, icon: const Icon(Icons.punch_clock_rounded), iconSize: 40, color: Colors.indigo,  );
+    }, icon: const Icon(Icons.punch_clock_rounded), iconSize: 40, );
   }
 }

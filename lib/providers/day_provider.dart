@@ -101,11 +101,11 @@ class DayProvider extends ChangeNotifier {
 
   //Get Color
 
-  Color getColor(int index) {
+  int getColor(int index) {
     if ( colorValue[index] == 0 ) {
-      return Colors.red;
+      return 0;
     } else {
-      return Colors.indigo;
+      return 1;
     }
   }
 
@@ -168,23 +168,23 @@ class DayProvider extends ChangeNotifier {
   }
 
   // Get Icon for Timestamp added
-  Icon getIcon(int typeTimeStamp, double size) {
+  Icon getIcon(int typeTimeStamp, double size, BuildContext context) {
 
     switch (typeTimeStamp) {
       case TypeTimeStamp.ENTRANCE:
-        return Icon(Icons.input_rounded, size: size, color: Colors.indigo);
+        return Icon(Icons.input_rounded, size: size, color: Theme.of(context).iconTheme.color);
       case TypeTimeStamp.EXIT:
-        return Icon(Icons.output_rounded, size: size, color: Colors.red);
+        return Icon(Icons.output_rounded, size: size, color: Theme.of(context).hintColor);
       case TypeTimeStamp.START_CAFETERIA:
-        return Icon(Icons.restaurant_rounded, size: size, color: Colors.indigo);
+        return Icon(Icons.restaurant_rounded, size: size, color: Theme.of(context).iconTheme.color);
       case TypeTimeStamp.END_CAFETERIA:
-        return Icon(Icons.restaurant_rounded, size: size, color: Colors.red);
+        return Icon(Icons.restaurant_rounded, size: size, color: Theme.of(context).hintColor);
       case TypeTimeStamp.START_BREAK:
-        return Icon(Icons.coffee, size: size, color: Colors.indigo);
+        return Icon(Icons.coffee, size: size, color: Theme.of(context).iconTheme.color);
       case TypeTimeStamp.END_BREAK:
-        return Icon(Icons.coffee, size: size, color: Colors.red);
+        return Icon(Icons.coffee, size: size, color: Theme.of(context).hintColor);
       default:
-        return Icon(Icons.error, size: size, color: Colors.red);
+        return Icon(Icons.error, size: size, color: Theme.of(context).hintColor);
     } 
   }
 
@@ -387,6 +387,7 @@ class DayProvider extends ChangeNotifier {
   }
 
   void reset() async {
+
        enableEntrance = true;
        enableExit = false;
        enableStartCafeteria = false;

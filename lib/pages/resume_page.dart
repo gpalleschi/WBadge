@@ -42,16 +42,15 @@ class ResumePage extends StatelessWidget {
                 child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(AppLocalizations.of(context)!.balanceweek, style: const TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold),),
-                  Text(totWeekBalance.toString(),style: TextStyle(fontSize: 24, color: totWeekBalance >= 0 ? Colors.indigo : Colors.red, fontWeight: FontWeight.bold), )
+                  Text(AppLocalizations.of(context)!.balanceweek, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                  Text(totWeekBalance.toString(),style: TextStyle(fontSize: 24, color: totWeekBalance >= 0 ? Theme.of(context).primaryColor : Theme.of(context).hintColor, fontWeight: FontWeight.bold), )
                 ],
                           ),
               ),
-           const Divider(
+            const Divider(
                 height: 20,
                 thickness: 3,
                 endIndent: 0,
-                color: Colors.indigo,
               ),      
             Center(
                    child: Column(
@@ -62,17 +61,17 @@ class ResumePage extends StatelessWidget {
                               header:  Column(
                                 children: [
                                   _TitleDayOfWeek(dayOfWeek: AppLocalizations.of(context)!.daysweek.split(":")[index] ),
-                                  _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.balance, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]], color: dayProvider.getColor(dayProvider.IDX_DAY_BALANCE),),
+                                  _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.balance, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]], color: (dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]].length > 0 && dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]][0] != '-') ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
                                 ],
                               ),
-                              theme: const ExpandableThemeData(iconColor: Colors.indigo, iconSize: 30),
+                              theme: ExpandableThemeData(iconColor: Theme.of(context).expansionTileTheme.iconColor, iconSize: 30),
                               expanded: Center(
                                 child: Column(
                                   children: [
-                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totalhours, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_HOURS]], color: dayProvider.getColor(dayProvider.IDX_TOT_HOURS)),
-                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totallunch, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_CAFETERIA]], color: dayProvider.getColor(dayProvider.IDX_TOT_CAFETERIA)),
-                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.numberbreaks, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_NUM_PAUSES]], color: dayProvider.getColor(dayProvider.IDX_NUM_PAUSES)),
-                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totalbreaks, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_PAUSES]],color: dayProvider.getColor(dayProvider.IDX_TOT_PAUSES)),
+                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totalhours, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_HOURS]], color: (Theme.of(context).textTheme.bodyLarge!.color)!),
+                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totallunch, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_CAFETERIA]], color: dayProvider.getColor(dayProvider.IDX_TOT_CAFETERIA) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
+                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.numberbreaks, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_NUM_PAUSES]], color: dayProvider.getColor(dayProvider.IDX_NUM_PAUSES) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
+                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totalbreaks, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_PAUSES]],color: dayProvider.getColor(dayProvider.IDX_TOT_PAUSES) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
                                   ],
                                 ),
                                   ), collapsed: Container(),
@@ -81,19 +80,18 @@ class ResumePage extends StatelessWidget {
                     }),
             )
             ),
-           const Divider(
+            const Divider(
                 height: 20,
                 thickness: 3,
                 endIndent: 0,
-                color: Colors.indigo,
               ),          
             Padding(
                 padding: const EdgeInsets.only(left: 8, right: 16, top: 8),
                 child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(AppLocalizations.of(context)!.totalhoursweek, style: const TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold),),
-                  Text(dayProvider.getWeekTotHours(),style: const TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold), )
+                  Text(AppLocalizations.of(context)!.totalhoursweek, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                  Text(dayProvider.getWeekTotHours(),style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold), )
                 ],
                           ),
               ),
@@ -118,7 +116,7 @@ class _TitleDayOfWeek extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
       child: Row( mainAxisAlignment: MainAxisAlignment.start, children: [
-      Text(dayOfWeek, style: const TextStyle(color: Colors.indigo, fontSize: 28, fontWeight: FontWeight.bold),),
+      Text(dayOfWeek, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),),
       ],),
     );
   }
@@ -141,9 +139,10 @@ class _RowResumeWeek extends StatelessWidget {
     return Row( mainAxisAlignment: MainAxisAlignment.start, children: [
     Padding(
       padding: const EdgeInsets.only(left: 16.0),
-      child: SizedBox(width: MediaQuery.of(context).size.width/2.5, child: Text(label, style: TextStyle(color: Colors.indigo, fontSize: sizeFont) )),
+      child: SizedBox(width: MediaQuery.of(context).size.width/2.5, child: Text(label, style: TextStyle(fontSize: sizeFont) )),
     ),
-    Text(' :  $value', style: TextStyle(color: color, fontSize: sizeFont) )
+    const Text(' :    '),
+    Text(value, style: TextStyle(color: color, fontSize: sizeFont) )
     ],);
   }
 }

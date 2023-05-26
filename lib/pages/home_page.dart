@@ -1,7 +1,9 @@
 import 'package:badge/models/type_time_stamp.dart';
+import 'package:badge/pages/pages.dart';
 import 'package:badge/providers/providers.dart';
 import 'package:badge/utility/time_utility.dart';
 import 'package:badge/widgets/custom_button_timestamp.dart';
+import 'package:badge/widgets/logo_dialog.dart';
 import 'package:badge/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
@@ -17,29 +19,34 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final dayProvider = Provider.of<DayProvider>(context);
-    final paramProvider = Provider.of<ParamProvider>(context, listen: false);
+    final paramProvider = Provider.of<ParamProvider>(context);
 
     // Resume every time I enter : 
     dayProvider.computeResume(paramProvider,dayProvider.selDay);
 
-    return Scaffold(
+    return dayProvider.flagLoad || paramProvider.flagLoad ? 
+         LoadingPage()
+      :
+    Scaffold(
       appBar: AppBar(
           title: Row(
             children: [
-              Image(image: AssetImage('assets/iconBadge.png'), width: 40,),
+               GestureDetector(
+                onDoubleTap: () async {
+                  await showDialog<String>( context: context,
+                              builder: (BuildContext context) => LogoDialog(),
+                       );
+                },
+                child: const Image(image: AssetImage('assets/iconBadge.png'), width: 40,)),
               Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text('W-BADGE - ' + AppLocalizations.of(context)!.timestamps),
+                padding: const EdgeInsets.only(left: 10),
+                child: Text('W-BADGE - ${AppLocalizations.of(context)!.timestamps}'),
               ),
             ],
           ),
       ),
       body: 
-      dayProvider.flagLoad ? 
-         const Center(
-           child: CircularProgressIndicator(),
-         )
-      :
+
       // Bottoni
       SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -52,19 +59,18 @@ class HomePage extends StatelessWidget {
                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                IconButton(icon: Icon(Icons.chevron_left_rounded, size: 30, color: dayProvider.selDay > 0 ? Colors.indigo : Colors.grey), onPressed: dayProvider.selDay == 0 ? null : () { dayProvider.selLeftDay(Provider.of<ParamProvider>(context, listen: false));},),
+                IconButton(icon: Icon(Icons.chevron_left_rounded, size: 30, color: dayProvider.selDay > 0 ? Theme.of(context).expansionTileTheme.iconColor : Theme.of(context).disabledColor), onPressed: dayProvider.selDay == 0 ? null : () { dayProvider.selLeftDay(Provider.of<ParamProvider>(context, listen: false));},),
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
-                  child: Text(AppLocalizations.of(context)!.daysweek.split(':')[dayProvider.selDay], style: const TextStyle(color: Colors.indigo, fontSize: 25, fontWeight: FontWeight.bold),),
+                  child: Text(AppLocalizations.of(context)!.daysweek.split(':')[dayProvider.selDay], style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
                 ),
-                IconButton(icon: Icon(Icons.chevron_right_rounded, size: 30, color: dayProvider.selDay < 6 ? Colors.indigo : Colors.grey), onPressed: dayProvider.selDay == 6 ? null : () { dayProvider.selRigthDay(Provider.of<ParamProvider>(context, listen: false));},),
+                IconButton(icon: Icon(Icons.chevron_right_rounded, size: 30, color: dayProvider.selDay < 6 ? Theme.of(context).expansionTileTheme.iconColor : Theme.of(context).disabledColor), onPressed: dayProvider.selDay == 6 ? null : () { dayProvider.selRigthDay(Provider.of<ParamProvider>(context, listen: false));},),
                 ],)
               ),
-          const Divider(
+              const Divider(
               height: 20,
               thickness: 3,
               endIndent: 0,
-              color: Colors.indigo,
           ),
 
           SizedBox(
@@ -87,25 +93,24 @@ class HomePage extends StatelessWidget {
              )
           ),
         ),
-         const Divider(
+        const  Divider(
               height: 20,
               thickness: 3,
-              endIndent: 0,
-              color: Colors.indigo,
+              endIndent: 0
             ),
         // Resume
         ExpandablePanel(
           // header: const Padding(
           //   padding: EdgeInsets.only(left: 10.0, top: 10.0),
-          //   child: Text('Info Giorno', style: TextStyle(color: Colors.indigo, fontSize: 25, fontWeight: FontWeight.bold),),
+          //   child: Text('Info Giorno', style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 25, fontWeight: FontWeight.bold),),
           // ),
           header: Column(
                                 children: [
                                   const _TitleDayResume(),
-                                  _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[0], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[0]], color: dayProvider.getColor(dayProvider.IDX_DAY_BALANCE),),
+                                  _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[0], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[0]], color: dayProvider.getColor(dayProvider.IDX_DAY_BALANCE) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
                                 ],
                               ),
-          theme: const ExpandableThemeData(iconColor: Colors.indigo, iconSize: 30),
+          theme: ExpandableThemeData(iconColor: Theme.of(context).expansionTileTheme.iconColor, iconSize: 30),
           expanded: Center(
              child: Column(
               // mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -113,29 +118,21 @@ class HomePage extends StatelessWidget {
                 if ( index == 0 ) {
                   return Container();
                 } else {
-                  return _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[index], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[index]], color: dayProvider.colorValue[index] > 0 ? Colors.indigo : Colors.red);
-                //   Padding(
-                //     padding: const EdgeInsets.all(5.0),
-                //     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,children: [
-                //       Container(width: 200, alignment: Alignment.centerLeft, child: Text(dayProvider.labelResume[index], style: const TextStyle(fontSize: 20, color: Colors.indigo, fontWeight: FontWeight.bold),)),
-                //       Container(width: 100, alignment: Alignment.center, child: Text(dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[index]], style: TextStyle(fontSize: 20, color: dayProvider.colorValue[index] > 0 ? Colors.indigo : Colors.red, fontWeight: FontWeight.bold),),),
-                //     ]),
-                // );
+                  return _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[index], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[index]], color: dayProvider.colorValue[index] > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor);
                 }
               }),
               )), collapsed: Container(),
           
         ),
-         const Divider(
+        const Divider(
               height: 20,
               thickness: 3,
               endIndent: 0,
-              color: Colors.indigo,
             ),
         // Lista Orari
         Row(mainAxisAlignment: MainAxisAlignment.spaceAround,children: [
-                    Container(width: 55, alignment: Alignment.center, child: Text(AppLocalizations.of(context)!.type, style: const TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold),),),
-                    SizedBox(width: 70, child: Text(AppLocalizations.of(context)!.hour, style: const TextStyle(fontSize: 24, color: Colors.indigo, fontWeight: FontWeight.bold) )),
+                    Container(width: 55, alignment: Alignment.center, child: Text(AppLocalizations.of(context)!.type, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),),
+                    SizedBox(width: 70, child: Text(AppLocalizations.of(context)!.hour, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold) )),
                     const SizedBox(width: 50, child: Text('')),
                     const SizedBox(width: 50, child: Text('')),
         ]),
@@ -146,13 +143,13 @@ class HomePage extends StatelessWidget {
             
             List.generate(dayProvider.currentTimeStamps.length, (index) {
               return Row(mainAxisAlignment: MainAxisAlignment.spaceAround,children: [
-                               SizedBox(width: 55, child: dayProvider.getIcon(dayProvider.currentTimeStamps[index].type, 35)),
-                               Container(width: 70, alignment: Alignment.center, child: Text(dayProvider.currentTimeStamps[index].time, style: const TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold, fontSize: 20 ),)),
+                               SizedBox(width: 55, child: dayProvider.getIcon(dayProvider.currentTimeStamps[index].type, 35, context)),
+                               Container(width: 70, alignment: Alignment.center, child: Text(dayProvider.currentTimeStamps[index].time, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20 ),)),
                                SizedBox(width: 50, child: CustomButtonClock(index: index,)),
                                const SizedBox(width: 20,),
                                SizedBox(width: 50, child: Padding(
                                  padding: const EdgeInsets.only(bottom: 4.0),
-                                 child: IconButton(icon: const Icon(Icons.delete_rounded, size: 40, color: Colors.indigo), onPressed: () async { 
+                                 child: IconButton(icon: const Icon(Icons.delete_rounded, size: 40), onPressed: () async { 
                                   String? ris = await showDialog<String>( context: context,
                                                       builder: (BuildContext context) => CustomAlertDialog(title: AppLocalizations.of(context)!.confirm, content: AppLocalizations.of(context)!.confirmdelmsg, type: 1),
                                                     );
@@ -169,8 +166,8 @@ class HomePage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 50,),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [ElevatedButton(onPressed: () { dayProvider.insertDefaultTimeStamps(Provider.of<ParamProvider>(context, listen: false)); },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo, elevation: 10 ),
-                  child: Text(AppLocalizations.of(context)!.insertdeftime, style: const TextStyle(color: Colors.white, fontSize: 20),),)],)
+                  style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor, elevation: 10 ),
+                  child: Text(AppLocalizations.of(context)!.insertdeftime, style: const TextStyle(fontSize: 20),),)],)
                 ],
               )
             ],
@@ -181,7 +178,7 @@ class HomePage extends StatelessWidget {
       ),
       bottomNavigationBar: const CustomNavigationBar(),
       // Only if I haven't timestamps appears this botton
-      // floatingActionButton: dayProvider.currentTimeStamps.isEmpty ? FloatingActionButton(onPressed: () { dayProvider.insertDefaultTimeStamps(); }, backgroundColor: Colors.indigo, child: const Icon(Icons.more_time_rounded, size: 40),) : null,
+      // floatingActionButton: dayProvider.currentTimeStamps.isEmpty ? FloatingActionButton(onPressed: () { dayProvider.insertDefaultTimeStamps(); }, backgroundColor: Theme.of(context).primaryColor, child: const Icon(Icons.more_time_rounded, size: 40),) : null,
     );
   }
 }
@@ -197,7 +194,7 @@ class _TitleDayResume extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
       child: Row( mainAxisAlignment: MainAxisAlignment.start, children: [
-      Text(AppLocalizations.of(context)!.infoday, style: const TextStyle(color: Colors.indigo, fontSize: 28, fontWeight: FontWeight.bold),),
+      Text(AppLocalizations.of(context)!.infoday, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),),
       ],),
     );
   }
@@ -220,9 +217,10 @@ class _RowDayResume extends StatelessWidget {
     return Row( mainAxisAlignment: MainAxisAlignment.start, children: [
     Padding(
       padding: const EdgeInsets.only(left: 16.0),
-      child: SizedBox(width: MediaQuery.of(context).size.width/2, child: Text(label, style: TextStyle(color: Colors.indigo, fontSize: sizeFont) )),
+      child: SizedBox(width: MediaQuery.of(context).size.width/2, child: Text(label, style: TextStyle( fontSize: sizeFont) )),
     ),
-    Text(' :  $value', style: TextStyle(color: color, fontSize: sizeFont) )
+    const Text(' :    '),
+    Text(value, style: TextStyle(color: color, fontSize: sizeFont) )
     ],);
   }
 }

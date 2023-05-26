@@ -1,5 +1,6 @@
 {
     "language": "Idioma",
+    "theme": "Tema",
     "timestamps": "Marcas De Tiempo",
     "enternow": "Entro Ahora",
     "exitnow": "Salgo Ahora",
@@ -53,6 +54,6 @@
     "titlealarmlunch" : "Alarma Fin Almuerzo",
     "msgalarmlunch" : "¿Quieres activar la alarma de fin de almuerzo a las {timeToAlarm}?",
     "timerendlunch" : "Fin Almuerzo",
-    "warning" : "Advertencia"
-
+    "warning" : "Advertencia",
+    "version" : "Versión"
 }
