@@ -44,7 +44,7 @@ class SettingsPage extends StatelessWidget {
                                 dropdownColor: Theme.of(context).dialogBackgroundColor,
                                 iconEnabledColor: Theme.of(context).expansionTileTheme.iconColor,
                                 style : const TextStyle(fontSize: fontSize),
-                                value: paramProvider.language,
+                                value: paramProvider.language.toLowerCase(),
                                 items: [DropdownMenuItem(value: "it", child: Text(AppLocalizations.of(context)!.italian, style: TextStyle(color: (Theme.of(context).dropdownMenuTheme.textStyle!.color)) )),
                                         DropdownMenuItem(value: "en", child: Text(AppLocalizations.of(context)!.english, style: TextStyle(color: (Theme.of(context).dropdownMenuTheme.textStyle!.color)) )),
                                         DropdownMenuItem(value: "es", child: Text(AppLocalizations.of(context)!.spanish, style: TextStyle(color: (Theme.of(context).dropdownMenuTheme.textStyle!.color)) )),], 
@@ -90,7 +90,7 @@ class SettingsPage extends StatelessWidget {
           _RowParam(fontSize: fontSize, label: AppLocalizations.of(context)!.hourminenter, type: 'min_time_entrance', value: paramProvider.min_time_entrance,),
           _RowParam(fontSize: fontSize, label: AppLocalizations.of(context)!.hourminexit, type: 'min_time_exit', value: paramProvider.min_time_exit,),
          const Padding(
-           padding: const EdgeInsets.only(top: 5),
+           padding: EdgeInsets.only(top: 5),
            child: Divider( height: 20, thickness: 3, endIndent: 0),
          ),
           _RowParam(fontSize: fontSize, label: AppLocalizations.of(context)!.mintimelunch, type: 'min_cafeteria', value: paramProvider.min_cafeteria,),

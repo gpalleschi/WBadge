@@ -16,7 +16,7 @@ class LogoDialog extends StatelessWidget {
             onDoubleTap: () {
               Navigator.pop(context);
             },
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height/2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
