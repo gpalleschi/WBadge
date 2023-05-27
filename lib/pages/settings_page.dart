@@ -42,7 +42,7 @@ class SettingsPage extends StatelessWidget {
                 width: 40,
                 child: DropdownButton( 
                                 dropdownColor: Theme.of(context).dialogBackgroundColor,
-                                iconEnabledColor: Theme.of(context).iconTheme.color,
+                                iconEnabledColor: Theme.of(context).expansionTileTheme.iconColor,
                                 style : const TextStyle(fontSize: fontSize),
                                 value: paramProvider.language,
                                 items: [DropdownMenuItem(value: "it", child: Text(AppLocalizations.of(context)!.italian, style: TextStyle(color: (Theme.of(context).dropdownMenuTheme.textStyle!.color)) )),
@@ -69,7 +69,7 @@ class SettingsPage extends StatelessWidget {
                 width: 40,
                 child: DropdownButton( 
                                 dropdownColor: Theme.of(context).dialogBackgroundColor,
-                                iconEnabledColor: Theme.of(context).iconTheme.color,
+                                iconEnabledColor: Theme.of(context).expansionTileTheme.iconColor,
                                 style : const TextStyle(fontSize: fontSize),
                                 value: paramProvider.selTheme,
                                 items: _getThemes(paramProvider, context),

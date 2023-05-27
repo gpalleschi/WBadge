@@ -16,6 +16,14 @@ class Dracula {
 
     iconTheme: const IconThemeData(color: Color.fromRGBO(138, 3, 3, 1)),
 
+     timePickerTheme: TimePickerThemeData(
+      backgroundColor: Colors.purple.shade100,
+      dialTextColor: Colors.black,
+      dialHandColor: Colors.purple,
+      hourMinuteColor: Colors.black,
+      hourMinuteTextColor: hintColor,
+    ),
+
     expansionTileTheme: const ExpansionTileThemeData(
       iconColor: Colors.black
     ),

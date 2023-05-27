@@ -25,7 +25,8 @@ class ParamProvider extends ChangeNotifier {
     'tim' : Tim.themeData,
     'ireland' : Ireland.themeData,
     'pink' : Pink.themeData,
-    'dracula' : Dracula.themeData
+    'dracula' : Dracula.themeData,
+    'spreca' : Spreca.themeData, 
   };
 
   Map<String, ThemeData> get getThemes {

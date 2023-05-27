@@ -47,8 +47,6 @@ class DayProvider extends ChangeNotifier {
   // Label x REsume
   final List<String> labelResume = [ 'Saldo Giorno','Tot Ore', 'Tot Mensa', 'Saldo Mensa', 'Uscita Prevista', 'Uscita Saldo 0',
                                      'Timbr. Min. Mensa', 'Fine Mensa Min.', 'Fine Mensa Max.', 'Tot Pause', 'Numero Pause'];
-  final List<int> colorValue = [ 1,1,1,1,1,1,1,1,1,1,1 ];
-
   final int IDX_DAY_BALANCE = 0;
   final int IDX_TOT_HOURS = 1;
   final int IDX_TOT_CAFETERIA = 2;
@@ -94,19 +92,12 @@ class DayProvider extends ChangeNotifier {
   bool enableStartBreak = false;
   bool enableEndBreak = false;
 
+  int getColorValue(int day, String type) {
 
-  // void LoadAllTimeStamps() async {
-  //   final scans = await DBProvider.db.getAllTimeStamps;
-  // }
-
-  //Get Color
-
-  int getColor(int index) {
-    if ( colorValue[index] == 0 ) {
-      return 0;
-    } else {
-      return 1;
-    }
+    if ( resumeDay[day][type].length > 0 ) {
+      if ( resumeDay[day][type][0] == '-' ) return 0;
+    } 
+    return 1;
   }
 
   //Get Week Balance
@@ -376,9 +367,6 @@ class DayProvider extends ChangeNotifier {
        for(int idx=0;idx<resumeDay.length;idx++) {
           resumeDay[idx].updateAll((k,v) => v = ''); 
        }
-       for(int i=0;i<colorValue.length;i++) {
-         colorValue[i] = 1;
-       }
 
        await DBProvider.db.deleteAllTimeStamps();
        await getData();
@@ -395,9 +383,6 @@ class DayProvider extends ChangeNotifier {
        enableStartBreak = false;
        enableEndBreak = false;
        resumeDay[selDay].updateAll((k,v) => v = ''); 
-       for(int i=0;i<colorValue.length;i++) {
-         colorValue[i] = 1;
-       }
 
        await DBProvider.db.deleteTimeStampByDay(selDay);
        await getData();
@@ -482,10 +467,6 @@ class DayProvider extends ChangeNotifier {
 
     // print('DEBUG enter in resume');
 
-    for(int i=0;i<colorValue.length;i++) {
-       colorValue[i] = 1;
-    }
-
     resumeDay[dayToCompute].updateAll((k,v) => v = ''); 
 
     List<TimeStamp> timeStampsToCompute = timeStamps.where((ts) => ts.day == dayToCompute).toList();
@@ -526,8 +507,6 @@ class DayProvider extends ChangeNotifier {
          }
 
          if ( resumeDay[dayToCompute][labelResume[IDX_CAF_BALANCE]].toString().startsWith('-') ) {
-            colorValue[IDX_TOT_CAFETERIA] = 0;
-            colorValue[IDX_CAF_BALANCE] = 0;
            resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]] = TimeUtility.addTime(resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]], TimeUtility.diffHHMITime(resumeDay[dayToCompute][labelResume[IDX_TOT_CAFETERIA]],paramProvider.max_cont_cafeteria));
 
          } else {
@@ -589,12 +568,6 @@ class DayProvider extends ChangeNotifier {
          resumeDay[dayToCompute][labelResume[IDX_DAY_BALANCE]] = iResumeDay.toString();
 
         //  print('iResumeDay : $iResumeDay');
-
-         // Colors 
-
-         if ( resumeDay[dayToCompute][labelResume[IDX_DAY_BALANCE]].toString().startsWith('-') ) {
-            colorValue[IDX_DAY_BALANCE] = 0;
-         }
 
          computeResume0(paramProvider,dayToCompute);
       }

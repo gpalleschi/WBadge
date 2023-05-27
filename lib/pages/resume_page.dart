@@ -43,7 +43,7 @@ class ResumePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(AppLocalizations.of(context)!.balanceweek, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
-                  Text(totWeekBalance.toString(),style: TextStyle(fontSize: 24, color: totWeekBalance >= 0 ? Theme.of(context).primaryColor : Theme.of(context).hintColor, fontWeight: FontWeight.bold), )
+                  Text(totWeekBalance.toString(),style: TextStyle(fontSize: 24, color: totWeekBalance >= 0 ? (Theme.of(context).textTheme.bodyLarge!.color) : Theme.of(context).hintColor, fontWeight: FontWeight.bold), )
                 ],
                           ),
               ),
@@ -61,7 +61,7 @@ class ResumePage extends StatelessWidget {
                               header:  Column(
                                 children: [
                                   _TitleDayOfWeek(dayOfWeek: AppLocalizations.of(context)!.daysweek.split(":")[index] ),
-                                  _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.balance, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]], color: (dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]].length > 0 && dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]][0] != '-') ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
+                                  _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.balance, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]], color: dayProvider.getColorValue(index,dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
                                 ],
                               ),
                               theme: ExpandableThemeData(iconColor: Theme.of(context).expansionTileTheme.iconColor, iconSize: 30),
@@ -69,9 +69,9 @@ class ResumePage extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totalhours, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_HOURS]], color: (Theme.of(context).textTheme.bodyLarge!.color)!),
-                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totallunch, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_CAFETERIA]], color: dayProvider.getColor(dayProvider.IDX_TOT_CAFETERIA) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
-                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.numberbreaks, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_NUM_PAUSES]], color: dayProvider.getColor(dayProvider.IDX_NUM_PAUSES) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
-                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totalbreaks, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_PAUSES]],color: dayProvider.getColor(dayProvider.IDX_TOT_PAUSES) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
+                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totallunch, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_CAFETERIA]], color: dayProvider.getColorValue(index, dayProvider.labelResume[dayProvider.IDX_TOT_CAFETERIA]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
+                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.numberbreaks, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_NUM_PAUSES]], color: dayProvider.getColorValue(index,dayProvider.labelResume[dayProvider.IDX_NUM_PAUSES]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
+                                    _RowResumeWeek(dayProvider: dayProvider, label: AppLocalizations.of(context)!.totalbreaks, value: dayProvider.resumeDay[index][dayProvider.labelResume[dayProvider.IDX_TOT_PAUSES]],color: dayProvider.getColorValue(index, dayProvider.labelResume[dayProvider.IDX_TOT_PAUSES]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
                                   ],
                                 ),
                                   ), collapsed: Container(),

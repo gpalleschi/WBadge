@@ -16,6 +16,8 @@ class Pink {
   static const Color dividerColor = Colors.pink;
   static const Color unselIconColor = Colors.white70;
 
+  static Color hMColor = Colors.pink.shade200;
+
 
   static final ThemeData themeData = ThemeData.dark().copyWith(
 
@@ -23,6 +25,14 @@ class Pink {
     disabledColor: disabled, 
     hintColor: hintColor,
     primaryColorLight: primaryLight,
+
+    timePickerTheme: TimePickerThemeData(
+      backgroundColor: scaffBkg,
+      dialTextColor: textColor,
+      dialHandColor: primaryLight,
+      hourMinuteColor: hMColor,
+      hourMinuteTextColor: hintColor,
+    ),
 
     iconTheme: const IconThemeData(color: Pink.iconColor),
 

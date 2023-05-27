@@ -17,7 +17,7 @@ class Ireland {
   static const Color unselIconColor = Colors.white70;
 
 
-  static final ThemeData themeData = ThemeData.dark().copyWith(
+  static final ThemeData themeData = ThemeData.light().copyWith(
 
     //primaryColor: primary,
     disabledColor: disabled, 
@@ -25,6 +25,14 @@ class Ireland {
     primaryColorLight: primaryLight,
 
     iconTheme: const IconThemeData(color: Ireland.iconColor),
+
+    timePickerTheme: TimePickerThemeData(
+      backgroundColor: scaffBkg,
+      dialTextColor: textColor,
+      dialHandColor: Colors.orange.shade400,
+      hourMinuteColor: Colors.orange.shade400,
+      hourMinuteTextColor: textColor,
+    ),
 
     expansionTileTheme: const ExpansionTileThemeData(
       iconColor: Ireland.expTileThemIconColor

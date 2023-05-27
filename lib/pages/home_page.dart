@@ -107,7 +107,7 @@ class HomePage extends StatelessWidget {
           header: Column(
                                 children: [
                                   const _TitleDayResume(),
-                                  _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[0], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[0]], color: dayProvider.getColor(dayProvider.IDX_DAY_BALANCE) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
+                                  _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[0], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[0]], color: dayProvider.getColorValue(dayProvider.selDay, dayProvider.labelResume[0]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
                                 ],
                               ),
           theme: ExpandableThemeData(iconColor: Theme.of(context).expansionTileTheme.iconColor, iconSize: 30),
@@ -118,7 +118,7 @@ class HomePage extends StatelessWidget {
                 if ( index == 0 ) {
                   return Container();
                 } else {
-                  return _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[index], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[index]], color: dayProvider.colorValue[index] > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor);
+                  return _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[index], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[index]], color: dayProvider.getColorValue(dayProvider.selDay, dayProvider.labelResume[index]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor);
                 }
               }),
               )), collapsed: Container(),

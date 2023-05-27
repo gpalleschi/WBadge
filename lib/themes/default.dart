@@ -7,6 +7,8 @@ class Default {
   static Color hintColor = Colors.red;
   static const Color primaryLight = Colors.white;
 
+  static Color hMColor = Colors.indigo;
+
   static final ThemeData themeData = ThemeData.light().copyWith(
     primaryColor: primary,
     disabledColor: disabled,
@@ -14,6 +16,14 @@ class Default {
     hintColor: hintColor,
 
     iconTheme: const IconThemeData(color: primary),
+
+    timePickerTheme: TimePickerThemeData(
+      backgroundColor: Colors.grey[300],
+      dialTextColor: primary,
+      //dialHandColor: primaryLight,
+      hourMinuteColor: hMColor,
+      //hourMinuteTextColor: primary,
+    ),
 
     expansionTileTheme: const ExpansionTileThemeData(
       iconColor: primary 

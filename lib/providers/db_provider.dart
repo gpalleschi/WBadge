@@ -32,7 +32,7 @@ class DBProvider {
     // print('path : $path');
     return await openDatabase(
        path,
-       version: 4,
+       version: 5,
        onOpen: (db) {
        },
        onCreate: ( Database db, int version ) async {
