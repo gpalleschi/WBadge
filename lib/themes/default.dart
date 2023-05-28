@@ -20,7 +20,7 @@ class Default {
     timePickerTheme: TimePickerThemeData(
       backgroundColor: Colors.grey[300],
       dialTextColor: primary,
-      //dialHandColor: primaryLight,
+      //dialHandColor: Colors.indigo,
       hourMinuteColor: hMColor,
       //hourMinuteTextColor: primary,
     ),
@@ -53,6 +53,13 @@ class Default {
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: Default.primary,
           elevation: 2 
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Default.primary,
+//          shape: const StadiumBorder(),
+//          elevation: 0
+      ),
     ),
     textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(foregroundColor: primary)),

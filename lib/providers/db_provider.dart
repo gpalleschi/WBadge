@@ -124,6 +124,11 @@ class DBProvider {
     final db = await database;
     final res = await db.rawUpdate('UPDATE WBadge_settings SET setting_value = ? WHERE setting_name = ? ', 
     [value,name]);
+
+    // If Param not present Insert it
+    if ( res == 0 ) {
+      await db.insert('WBadge_settings', {'setting_name' : name, 'setting_value' : value, 'setting_type' : 'TEXT'}); 
+    }
     return res;
   }
 

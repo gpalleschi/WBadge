@@ -22,6 +22,9 @@ class Dracula {
       dialHandColor: Colors.purple,
       hourMinuteColor: Colors.black,
       hourMinuteTextColor: hintColor,
+      dayPeriodColor: Colors.grey,
+      dayPeriodTextColor: Colors.purple
+      //dialBackgroundColor: Color.fromRGBO(158, 158, 158, 1),
     ),
 
     expansionTileTheme: const ExpansionTileThemeData(
@@ -56,9 +59,10 @@ class Dracula {
         style: TextButton.styleFrom(foregroundColor: primary)),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-          backgroundColor: Dracula.primary,
-          shape: const StadiumBorder(),
-          elevation: 0),
+          backgroundColor: Colors.purple,
+          // shape: const StadiumBorder(),
+          // elevation: 0
+          ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Colors.purple,

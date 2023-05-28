@@ -67,9 +67,10 @@ class Ireland {
         style: TextButton.styleFrom(foregroundColor: primary)),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-          backgroundColor: Ireland.primary,
-          shape: const StadiumBorder(),
-          elevation: 0),
+          backgroundColor: bkgroundAppBar,
+//          shape: const StadiumBorder(),
+//          elevation: 0
+          ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Ireland.bottNavBarBkg,

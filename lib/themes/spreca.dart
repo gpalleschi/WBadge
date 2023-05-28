@@ -4,16 +4,17 @@ class Spreca {
 
   static Color primary = Colors.grey.shade700;
   static const Color disabled = Colors.black;
-  static Color hintColor = Color.fromRGBO(253,0,40,1);
+  static Color hintColor = const Color.fromRGBO(254,0,0,1);
   static const Color primaryLight = Colors.white;
   static const Color textColor = Colors.black;
-  static const Color bkgroundAppBar = Color.fromRGBO(26, 35, 126, 1);
-  static Color scaffBkg = Colors.grey.shade200;
+  static const Color bkgroundAppBar = Color.fromRGBO(0, 0, 254, 1);
+  static Color scaffBkg = Color.fromRGBO(136, 136, 136, 1);
   static Color dlgBkg = Colors.white;
-  static const Color iconColor = Color.fromRGBO(118, 255, 3, 1);
-  static const Color bottNavBarBkg = Colors.red;
+  static const Color iconColor = Color.fromRGBO(224, 167, 51, 1);
+  //static const Color bottNavBarBkg = Color.fromRGBO(254, 0, 0, 1);
+  static const Color bottNavBarBkg = Color.fromRGBO(254,0,0,1);
   static const Color expTileThemIconColor = Colors.orangeAccent;
-  static const Color dividerColor = Colors.grey;
+  static const Color dividerColor = Color.fromRGBO(0, 255, 1, 1);
   static const Color unselIconColor = Colors.white70;
 
 
@@ -55,6 +56,12 @@ class Spreca {
 
     scaffoldBackgroundColor: Spreca.scaffBkg,
 
+    // textButtonTheme: TextButtonThemeData(
+    //   style: TextButton.styleFrom(
+    //     backgroundColor: Colors.black,
+    //   ),
+    // ),
+
     appBarTheme: const AppBarTheme(
           elevation: 0,
           color: Spreca.bkgroundAppBar,
@@ -67,9 +74,10 @@ class Spreca {
         style: TextButton.styleFrom(foregroundColor: primary)),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-          backgroundColor: Spreca.primary,
-          shape: const StadiumBorder(),
-          elevation: 0),
+          backgroundColor: Colors.black,
+          // shape: const StadiumBorder(),
+          // elevation: 0
+          ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Spreca.bottNavBarBkg,

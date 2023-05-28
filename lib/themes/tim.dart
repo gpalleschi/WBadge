@@ -67,9 +67,10 @@ class Tim {
         style: TextButton.styleFrom(foregroundColor: primary)),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-          backgroundColor: Tim.primary,
-          shape: const StadiumBorder(),
-          elevation: 0),
+          backgroundColor: iconColor,
+          // shape: const StadiumBorder(),
+          // elevation: 0
+          ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Tim.bottNavBarBkg,

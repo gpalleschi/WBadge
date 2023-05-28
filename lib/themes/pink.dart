@@ -69,9 +69,10 @@ class Pink {
         style: TextButton.styleFrom(foregroundColor: primary)),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-          backgroundColor: Pink.primary,
-          shape: const StadiumBorder(),
-          elevation: 0),
+          backgroundColor: Pink.bkgroundAppBar, 
+          // shape: const StadiumBorder(),
+          // elevation: 0
+          ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Pink.bottNavBarBkg,

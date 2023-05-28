@@ -166,7 +166,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 50,),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [ElevatedButton(onPressed: () { dayProvider.insertDefaultTimeStamps(Provider.of<ParamProvider>(context, listen: false)); },
-                  style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor, elevation: 10 ),
+                  style: ElevatedButton.styleFrom(elevation: 10 ),
                   child: Text(AppLocalizations.of(context)!.insertdeftime, style: const TextStyle(fontSize: 20),),)],)
                 ],
               )
