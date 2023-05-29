@@ -63,8 +63,9 @@ class Dark {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           backgroundColor: Dark.primary,
-          shape: const StadiumBorder(),
-          elevation: 0),
+          // shape: const StadiumBorder(),
+          // elevation: 0
+          ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Dark.bottNavBarBkg,
