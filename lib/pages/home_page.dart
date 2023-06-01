@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
     dayProvider.computeResume(paramProvider,dayProvider.selDay);
 
     return dayProvider.flagLoad || paramProvider.flagLoad ? 
-         LoadingPage()
+         const LoadingPage()
       :
     Scaffold(
       appBar: AppBar(
