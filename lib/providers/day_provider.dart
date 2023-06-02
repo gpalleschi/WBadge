@@ -18,7 +18,7 @@ class DayProvider extends ChangeNotifier {
 
   Future<int> getData() async {
     flagLoad = true;
-    print('Entro in GetData');
+    // print('Entro in GetData');
     // print('getData in Costructor');
     final allTimeStamps = await DBProvider.db.getAllTimeStamps();
     timeStamps = [...allTimeStamps];
@@ -147,6 +147,7 @@ class DayProvider extends ChangeNotifier {
 
   // Add New TimeStamp
   Future<int> addNewTimeStamp( int typeTimeStamp, String time, ParamProvider paramProvider) async {
+    
     final newId = await DBProvider.db.newTimeStamp(TimeStamp(day: selDay, type: typeTimeStamp, time: time));
     timeStamps.add(TimeStamp(id: newId, day: selDay, type: typeTimeStamp, time: time));
     currentTimeStamps = timeStamps.where((ts) => ts.day == selDay).toList();
@@ -425,7 +426,7 @@ class DayProvider extends ChangeNotifier {
 
   void computeResume0(ParamProvider paramProvider, int dayToCompute) {
 
-    print('computeResume0 : ${resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]].compareTo(paramProvider.min_time_exit)}');
+    // print('computeResume0 : ${resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]].compareTo(paramProvider.min_time_exit)}');
 
     if ( resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]].compareTo(paramProvider.min_time_exit) > 0 ) {
             // Calcolo Totale saldo giorni precedenti
@@ -434,9 +435,9 @@ class DayProvider extends ChangeNotifier {
             if ( resumeDay[precDay][labelResume[IDX_DAY_BALANCE]] != '' ) {
                totSaldo+=int.parse(resumeDay[precDay][labelResume[IDX_DAY_BALANCE]]);
             }
-            print('Day $precDay : ${totSaldo}');
+            // print('Day $precDay : ${totSaldo}');
         }
-        print('totSaldo : ${totSaldo}');
+        // print('totSaldo : ${totSaldo}');
         if ( totSaldo > 0 ) {
             String timeExp = TimeUtility.diffHHMITime(resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]], TimeUtility.getHHMMFromMin(totSaldo));
             // print('timeExp : ${timeExp}');
@@ -468,7 +469,7 @@ class DayProvider extends ChangeNotifier {
   // Calculate all resume
   void computeResume(ParamProvider paramProvider, int dayToCompute) {
 
-    print('DEBUG enter in resume');
+    // print('DEBUG enter in resume');
 
     resumeDay[dayToCompute].updateAll((k,v) => v = ''); 
 

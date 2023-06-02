@@ -22,7 +22,8 @@ class HomePage extends StatelessWidget {
     final paramProvider = Provider.of<ParamProvider>(context);
 
     // Resume every time I enter : 
-    dayProvider.computeResume(paramProvider,dayProvider.selDay);
+    // FIXME: It's not correct
+    dayProvider.computeResumeWeek(paramProvider);
 
     return dayProvider.flagLoad || paramProvider.flagLoad ? 
          const LoadingPage()
@@ -181,6 +182,7 @@ class HomePage extends StatelessWidget {
       // floatingActionButton: dayProvider.currentTimeStamps.isEmpty ? FloatingActionButton(onPressed: () { dayProvider.insertDefaultTimeStamps(); }, backgroundColor: Theme.of(context).primaryColor, child: const Icon(Icons.more_time_rounded, size: 40),) : null,
     );
   }
+
 }
 
 class _TitleDayResume extends StatelessWidget {
