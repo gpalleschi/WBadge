@@ -43,8 +43,6 @@ class _BodyApp extends StatelessWidget {
       initialRoute: 'home',
       routes: {
         'home'     : ( _ ) => const HomePage(),
-        'resume'   : ( _ ) => const ResumePage(),
-        'settings' : ( _ ) => const SettingsPage(),
       },
       theme: paramProvider.currentThemeData,
       supportedLocales: L10n.all,

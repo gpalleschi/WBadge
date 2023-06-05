@@ -54,6 +54,14 @@ class Default {
           backgroundColor: Default.primary,
           elevation: 2 
     ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        //backgroundColor: primary,
+        foregroundColor: primary,
+        textStyle: const TextStyle(fontWeight: FontWeight.bold ),
+        side: const BorderSide(color: primary, width: 3),
+      )
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           backgroundColor: Default.primary,

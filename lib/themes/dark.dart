@@ -60,6 +60,14 @@ class Dark {
 
     textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(foregroundColor: primary)),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        //backgroundColor: primary,
+        foregroundColor: primary,
+        textStyle: const TextStyle(fontWeight: FontWeight.bold ),
+        side: BorderSide(color: primary, width: 3),
+      )
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           backgroundColor: Dark.primary,

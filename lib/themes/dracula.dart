@@ -57,6 +57,14 @@ class Dracula {
 
     textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(foregroundColor: primary)),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        //backgroundColor: primary,
+        foregroundColor:  const Color.fromRGBO(138, 3, 3, 1),
+        textStyle: const TextStyle(fontWeight: FontWeight.bold ),
+        side: const BorderSide(color: Colors.black, width: 3),
+      )
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           backgroundColor: Colors.purple,

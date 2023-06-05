@@ -16,19 +16,7 @@ class SettingsPage extends StatelessWidget {
     final paramProvider = Provider.of<ParamProvider>(context);
     const double fontSize = 20;
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              const Image(image: AssetImage('assets/iconBadge.png'), width: 40,),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text('W-BADGE - ${AppLocalizations.of(context)!.settings}'),
-              ),
-            ],
-          ),
-      ), 
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Column(children: [
 
           Padding(
@@ -154,9 +142,6 @@ class SettingsPage extends StatelessWidget {
 
         ],)
 
-      ),
-      bottomNavigationBar: const CustomNavigationBar(),
-      
       );
   }
 

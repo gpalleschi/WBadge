@@ -8,7 +8,7 @@ class Spreca {
   static const Color primaryLight = Colors.white;
   static const Color textColor = Colors.black;
   static const Color bkgroundAppBar = Color.fromRGBO(0, 0, 254, 1);
-  static Color scaffBkg = Color.fromRGBO(136, 136, 136, 1);
+  static Color scaffBkg = Color.fromRGBO(197, 194, 194, 1);
   static Color dlgBkg = Colors.white;
   static const Color iconColor = Color.fromRGBO(224, 167, 51, 1);
   //static const Color bottNavBarBkg = Color.fromRGBO(254, 0, 0, 1);
@@ -72,6 +72,14 @@ class Spreca {
 
     textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(foregroundColor: primary)),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        //backgroundColor: primary,
+        foregroundColor: textColor,
+        textStyle: const TextStyle(fontWeight: FontWeight.bold ),
+        side: const BorderSide(color: dividerColor, width: 3),
+      )
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           backgroundColor: Colors.black,

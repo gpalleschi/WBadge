@@ -65,6 +65,14 @@ class Ireland {
 
     textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(foregroundColor: primary)),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        //backgroundColor: primary,
+        foregroundColor: textColor,
+        textStyle: const TextStyle(fontWeight: FontWeight.bold ),
+        side: const BorderSide(color: dividerColor, width: 3),
+      )
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           backgroundColor: bkgroundAppBar,

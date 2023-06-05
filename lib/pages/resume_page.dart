@@ -21,19 +21,7 @@ class ResumePage extends StatelessWidget {
     // Compute Week Resume every time I enter
     final totWeekBalance = dayProvider.computeResumeWeek(paramProvider);
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              const Image(image: AssetImage('assets/iconBadge.png'), width: 40,),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text('W-BADGE - ${AppLocalizations.of(context)!.resume}'),
-              ),
-            ],
-          ),
-      ), 
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
           children: [
@@ -97,8 +85,7 @@ class ResumePage extends StatelessWidget {
               ),
           ],
         ),
-      ),
-      bottomNavigationBar: const CustomNavigationBar(),);
+      );
   }
 }
 
