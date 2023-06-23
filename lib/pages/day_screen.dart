@@ -121,7 +121,7 @@ class DayScreen extends StatelessWidget {
                                   String? ris = await showDialog<String>( context: context,
                                                       builder: (BuildContext context) => CustomAlertDialog(title: AppLocalizations.of(context)!.confirm, content: AppLocalizations.of(context)!.confirmdelmsg, type: 1),
                                                     );
-                                  if ( ris == 'SI' ) {
+                                  if ( ris == AppLocalizations.of(context)!.yes ) {
                                      dayProvider.deleleTimeStamp(index, paramProvider);
                                   }
                                  

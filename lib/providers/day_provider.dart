@@ -279,6 +279,7 @@ class DayProvider extends ChangeNotifier {
 
   // Delete a TimeStamp
   void deleleTimeStamp(int index, ParamProvider paramProvider) async {
+
     if ( currentTimeStamps[index].type == TypeTimeStamp.ENTRANCE ) {
        reset();
        return;

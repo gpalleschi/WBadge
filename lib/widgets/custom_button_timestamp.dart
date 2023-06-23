@@ -60,7 +60,7 @@ class CustomButtonTimeStamp extends StatelessWidget {
                        String? ris = await showDialog<String>( context: context,
                                              builder: (BuildContext context) => CustomAlertDialog(title: AppLocalizations.of(context)!.titlealarmlunch, content: AppLocalizations.of(context)!.msgalarmlunch(timeToAlarm), type: 1),
                                              );
-                       if ( ris == 'SI' ) {
+                       if ( ris == AppLocalizations.of(context)!.yes ) {
                           FlutterAlarmClock.createTimer(TimeUtility.getMin(paramProvider.min_cafeteria)*60,title: AppLocalizations.of(context)!.endlunch);
                        }                       
 

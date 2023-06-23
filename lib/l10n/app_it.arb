@@ -35,7 +35,7 @@
     "reqalarmmaxbreaks" : "Allarme per superamento pause",
     "maxbreaks" : "Massimo Numero Pause", 
     "labelresume" : "Saldo Giorno:Tot Ore:Tot Mensa:Saldo Mensa:Uscita Prevista:Uscita Saldo 0:Timbr. Min. Mensa:Fine Mensa Min.:Fine Mensa Max.:Tot Pause:Numero Pause",
-    "daysweek" : "Lunedì:Martedì:Mercoledì:Giovedì:Venerdì:Sabado:Domenica",
+    "daysweek" : "Lunedì:Martedì:Mercoledì:Giovedì:Venerdì:Sabato:Domenica",
     "error" : "Errore",
     "no" : "NO",
     "yes" : "SI",

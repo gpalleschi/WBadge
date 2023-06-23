@@ -25,6 +25,8 @@ class Dark {
 
     timePickerTheme: TimePickerThemeData(
       backgroundColor: scaffBkg,
+      cancelButtonStyle: ButtonStyle(foregroundColor: MaterialStateColor.resolveWith( (states) => Colors.orange),),
+      confirmButtonStyle: ButtonStyle(foregroundColor: MaterialStateColor.resolveWith( (states) => Colors.orange),),
     ),
 
     iconTheme: const IconThemeData(color: Dark.iconColor),
@@ -59,7 +61,7 @@ class Dark {
     dialogBackgroundColor: Dark.dlgBkg,
 
     textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(foregroundColor: primary)),
+        style: TextButton.styleFrom(foregroundColor: Colors.white)),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         //backgroundColor: primary,
