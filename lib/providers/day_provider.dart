@@ -153,10 +153,12 @@ class DayProvider extends ChangeNotifier {
     currentTimeStamps = timeStamps.where((ts) => ts.day == selDay).toList();
     notifyListeners();
 
-    setForTypeTimeStamp(typeTimeStamp);
-    computeResume(paramProvider, selDay);
+    if ( typeTimeStamp != TypeTimeStamp.EXIT ) {
+       setForTypeTimeStamp(typeTimeStamp);
+       computeResume(paramProvider, selDay);
+       notifyListeners();
+    }
 
-    notifyListeners();
     return timeStamps.length;
   }
 
@@ -214,7 +216,9 @@ class DayProvider extends ChangeNotifier {
        await DBProvider.db.updateTimeStamp(currentTimeStamps[index], newTime);
        await getData();
        currentTimeStamps = timeStamps.where((ts) => ts.day == selDay).toList();
-       computeResume(paramProvider, selDay);
+       if ( currentTimeStamps[index].type != TypeTimeStamp.EXIT ) {
+          computeResume(paramProvider, selDay);
+       }
        notifyListeners();
     }
 
@@ -429,16 +433,17 @@ class DayProvider extends ChangeNotifier {
 
     // print('computeResume0 : ${resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]].compareTo(paramProvider.min_time_exit)}');
 
-    if ( resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]].compareTo(paramProvider.min_time_exit) > 0 ) {
+    int totSaldo = 0;
+    for(int precDay=0;precDay<dayToCompute;precDay++) {
+       if ( resumeDay[precDay][labelResume[IDX_DAY_BALANCE]] != '' ) {
+            totSaldo+=int.parse(resumeDay[precDay][labelResume[IDX_DAY_BALANCE]]);
+       }
+       // print('Day $precDay : ${totSaldo}');
+    }
+
+    if ( resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]].compareTo(paramProvider.min_time_exit) >= 0 ) {
             // Calcolo Totale saldo giorni precedenti
-        int totSaldo = 0;
-        for(int precDay=0;precDay<dayToCompute;precDay++) {
-            if ( resumeDay[precDay][labelResume[IDX_DAY_BALANCE]] != '' ) {
-               totSaldo+=int.parse(resumeDay[precDay][labelResume[IDX_DAY_BALANCE]]);
-            }
-            // print('Day $precDay : ${totSaldo}');
-        }
-        // print('totSaldo : ${totSaldo}');
+
         if ( totSaldo > 0 ) {
             String timeExp = TimeUtility.diffHHMITime(resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]], TimeUtility.getHHMMFromMin(totSaldo));
             // print('timeExp : ${timeExp}');
@@ -448,7 +453,7 @@ class DayProvider extends ChangeNotifier {
                resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT_0]] = paramProvider.min_time_exit;
             }
         } else {
-            resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT_0]] = resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]];
+            resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT_0]] = TimeUtility.addTime(resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]], TimeUtility.getHHMMFromMin(totSaldo.abs()));
         }
 
     } else {
@@ -513,9 +518,11 @@ class DayProvider extends ChangeNotifier {
 
          if ( resumeDay[dayToCompute][labelResume[IDX_CAF_BALANCE]].toString().startsWith('-') ) {
            resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]] = TimeUtility.addTime(resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]], TimeUtility.diffHHMITime(resumeDay[dayToCompute][labelResume[IDX_TOT_CAFETERIA]],paramProvider.max_cont_cafeteria));
-
          } else {
-           String newTimeExit = TimeUtility.subTime(resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]], resumeDay[dayToCompute][labelResume[IDX_TOT_CAFETERIA]]);
+           // TODO:  If time cafeteria < 30 then 30
+          //  print('diff Cafeteria : ${TimeUtility.diffMinTime(resumeDay[dayToCompute][labelResume[IDX_TOT_CAFETERIA]],paramProvider.min_cont_cafeteria)}');
+
+           String newTimeExit = TimeUtility.subTime(resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]], TimeUtility.diffHHMITime(paramProvider.max_cont_cafeteria,resumeDay[dayToCompute][labelResume[IDX_TOT_CAFETERIA]]));
            if ( TimeUtility.diffMinTime(newTimeExit, paramProvider.min_time_exit) < 0 ) {
              resumeDay[dayToCompute][labelResume[IDX_EXP_EXIT]] = paramProvider.min_time_exit;
            } else {
@@ -574,7 +581,7 @@ class DayProvider extends ChangeNotifier {
 
         //  print('iResumeDay : $iResumeDay');
 
-         computeResume0(paramProvider,dayToCompute);
+        // computeResume0(paramProvider,dayToCompute);
       }
 
     }
