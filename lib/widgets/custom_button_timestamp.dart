@@ -43,6 +43,8 @@ class CustomButtonTimeStamp extends StatelessWidget {
                     TimeOfDay timeOfDay = TimeOfDay.fromDateTime(now);
                     String timeToAdd = TimeUtility.getHourMinute(timeOfDay);
 
+                    // print('TimeToAdd : ${timeToAdd} seconds : ${now.second}');
+
                     if ( now.second >= 30 ) {
                        timeToAdd = TimeUtility.addTime(timeToAdd,"00:01");
                     }

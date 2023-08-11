@@ -1,8 +1,5 @@
-import 'package:badge/main.dart';
-import 'package:badge/providers/day_provider.dart';
 import 'package:badge/providers/param_provider.dart';
 import 'package:badge/utility/time_utility.dart';
-import 'package:badge/widgets/custom_navigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

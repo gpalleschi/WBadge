@@ -1,10 +1,6 @@
-import 'dart:io';
 
-import 'package:badge/models/settings.dart';
 import 'package:badge/models/time_stamp.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:meta/meta.dart';
 import 'package:path/path.dart';
 
 class DBProvider {

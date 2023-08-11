@@ -1,4 +1,3 @@
-import 'package:badge/utility/time_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:badge/providers/providers.dart';
 import 'package:provider/provider.dart';

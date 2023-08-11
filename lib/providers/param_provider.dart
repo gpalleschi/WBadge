@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class ParamProvider extends ChangeNotifier {
 
   // Version to change
-  String version = "1.0.2";
+  String version = "1.0.3";
   String skyballs = "Skyballs 2023";
 
   bool flagLoad = false; 
