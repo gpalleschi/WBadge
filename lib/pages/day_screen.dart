@@ -81,11 +81,7 @@ class DayScreen extends StatelessWidget {
              child: Column(
               // mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: List.generate(dayProvider.labelResume.length, (index) {
-                if ( index == 0 ) {
-                  return Container();
-                } else {
-                  return _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[index], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[index]], color: dayProvider.getColorValue(dayProvider.selDay, dayProvider.labelResume[index]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor);
-                }
+                return _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[index], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[index]], color: dayProvider.getColorValue(dayProvider.selDay, dayProvider.labelResume[index]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor);
               }),
               )), collapsed: 
 
