@@ -75,7 +75,6 @@ class DayScreen extends StatelessWidget {
           header: Column(
                                 children: [
                                   const _TitleDayResume(),
-                                  _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[0], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[0]], color: dayProvider.getColorValue(dayProvider.selDay, dayProvider.labelResume[0]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
                                 ],
                               ),
           theme: ExpandableThemeData(iconColor: Theme.of(context).expansionTileTheme.iconColor, iconSize: 30),
@@ -89,7 +88,15 @@ class DayScreen extends StatelessWidget {
                   return _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[index], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[index]], color: dayProvider.getColorValue(dayProvider.selDay, dayProvider.labelResume[index]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor);
                 }
               }),
-              )), collapsed: Container(),
+              )), collapsed: 
+
+                dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[dayProvider.IDX_EXP_EXIT]] == '' ?
+                Container() :
+              Column( 
+                children: [ _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[dayProvider.IDX_DAY_BALANCE], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]], color: dayProvider.getColorValue(dayProvider.selDay, dayProvider.labelResume[dayProvider.IDX_DAY_BALANCE]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
+                            _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[dayProvider.IDX_EXP_EXIT], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[dayProvider.IDX_EXP_EXIT]], color: dayProvider.getColorValue(dayProvider.selDay, dayProvider.labelResume[dayProvider.IDX_EXP_EXIT]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),
+                            _RowDayResume(dayProvider: dayProvider, label: AppLocalizations.of(context)!.labelresume.split(':')[dayProvider.IDX_EXP_EXIT_0], value: dayProvider.resumeDay[dayProvider.selDay][dayProvider.labelResume[dayProvider.IDX_EXP_EXIT_0]], color: dayProvider.getColorValue(dayProvider.selDay, dayProvider.labelResume[dayProvider.IDX_EXP_EXIT_0]) > 0 ? (Theme.of(context).textTheme.bodyLarge!.color)! : Theme.of(context).hintColor),]
+              ),
           
         ),
         const Divider(
