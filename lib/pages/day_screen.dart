@@ -72,9 +72,8 @@ class DayScreen extends StatelessWidget {
           //   padding: EdgeInsets.only(left: 10.0, top: 10.0),
           //   child: Text('Info Giorno', style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 25, fontWeight: FontWeight.bold),),
           // ),
-          header: Column(
-                                children: [
-                                  const _TitleDayResume(),
+          header: const Column( children: [
+                                  _TitleDayResume(),
                                 ],
                               ),
           theme: ExpandableThemeData(iconColor: Theme.of(context).expansionTileTheme.iconColor, iconSize: 30),
