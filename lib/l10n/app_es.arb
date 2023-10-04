@@ -55,5 +55,7 @@
     "msgalarmlunch" : "¿Quieres activar la alarma de fin de almuerzo a las {timeToAlarm}?",
     "timerendlunch" : "Fin Almuerzo",
     "warning" : "Advertencia",
-    "version" : "Versión"
+    "version" : "Versión",
+    "roundseconds" : "Redondeo de minutos",
+    "limitseconds" : "Límite segundos redondear minutos"
 }

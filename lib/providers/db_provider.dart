@@ -56,6 +56,8 @@ class DBProvider {
          await db.insert('WBadge_settings', {'setting_name' : 'check_tot_breaks', 'setting_value' : 'false', 'setting_type' : 'BOOLEAN'});
          await db.insert('WBadge_settings', {'setting_name' : 'check_alarm_caf', 'setting_value' : 'false', 'setting_type' : 'BOOLEAN'});
          await db.insert('WBadge_settings', {'setting_name' : 'max_tot_breaks', 'setting_value' : '0', 'setting_type' : 'INT'});
+         await db.insert('WBadge_settings', {'setting_name' : 'round_seconds', 'setting_value' : 'false', 'setting_type' : 'BOOLEAN'});
+         await db.insert('WBadge_settings', {'setting_name' : 'limit_round_seconds', 'setting_value' : '30', 'setting_type' : 'INT'});
        }
      );
   }
@@ -129,12 +131,14 @@ class DBProvider {
   }
 
   // Get ParamText
-  Future<String?> getSettingString(String settingName) async {
+  Future<String?> getSettingString(String settingName, String defaultValue, String type) async {
     final db = await database;
 
     final List<Map<String, dynamic>> ret = await db.rawQuery('SELECT setting_value FROM "WBadge_settings" WHERE setting_name = "$settingName"');
 
-    // print('value : ${ret[0]['setting_value']}');
+    if ( ret.isEmpty ) {
+      await db.insert('WBadge_settings', {'setting_name' : settingName, 'setting_value' : defaultValue, 'setting_type' : type});
+    }
 
     return ret.isEmpty ? '' : ret[0]['setting_value'];
   }

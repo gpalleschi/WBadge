@@ -96,13 +96,13 @@ class SettingsPage extends StatelessWidget {
       child: Row(children: [ SizedBox(width: MediaQuery.of(context).size.width/1.5, child: Text(AppLocalizations.of(context)!.reqalarmmaxbreaks, style: const TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),)),
          Switch( value: paramProvider.check_tot_breaks, 
                 activeColor: Theme.of(context).iconTheme.color,
-                inactiveThumbColor: Theme.of(context).iconTheme.color,
-                inactiveTrackColor: Theme.of(context).disabledColor,
+                // inactiveThumbColor: Theme.of(context).iconTheme.color,
+                // inactiveTrackColor: Theme.of(context).disabledColor,
                 onChanged: (value) { paramProvider.setParam('check_tot_breaks', value?'true':'false');})])),
          // Totale Pause
          Padding(
       padding: const EdgeInsets.only(top: 5.0, right: 5.0, left: 10.0),
-      child: Row( children: [ SizedBox(width: MediaQuery.of(context).size.width/1.55, child: Text(AppLocalizations.of(context)!.maxbreaks, style: const TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),)),
+      child: Row( children: [ SizedBox(width: MediaQuery.of(context).size.width/1.60, child: Text(AppLocalizations.of(context)!.maxbreaks, style: const TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),)),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -124,18 +124,46 @@ class SettingsPage extends StatelessWidget {
           ),
         ],
       ),
-                            //  Container( padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 8.0, left: 8.0),
-                            //     child: Text(paramProvider.max_tot_breaks, style: TextStyle(color: Theme.of(context).primaryColor, fontSize: fontSize),),
-                            //     alignment: Alignment.center,
-                            //     decoration: BoxDecoration( border: Border.all(
-                            //                                color: Theme.of(context).primaryColor, //                   <--- border color
-                            //                                width: 2.0,
-                            //                              ),),
-                            //    ),
-
                 ])),
 
          //_RowParam(fontSize: fontSize, label: 'Massimo Numero Pause', type: 'max_tot_breaks', value: paramProvider.max_tot_breaks,),
+         const Divider( height: 20, thickness: 3, endIndent: 0,),
+         // Arrotondamento secondi
+         Padding(
+      padding: const EdgeInsets.only(top: 5.0, right: 5.0, left: 10.0),
+      child: Row(children: [ SizedBox(width: MediaQuery.of(context).size.width/1.5, child: Text(AppLocalizations.of(context)!.roundseconds, style: const TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),)),
+         Switch( value: paramProvider.round_seconds, 
+                activeColor: Theme.of(context).iconTheme.color,
+                // inactiveThumbColor: Theme.of(context).iconTheme.color,
+                // inactiveTrackColor: Theme.of(context).disabledColor,
+                onChanged: (value) { paramProvider.setParam('round_seconds', value?'true':'false');})])),
+         // Totale Secondi
+         Padding(
+      padding: const EdgeInsets.only(top: 5.0, right: 5.0, left: 10.0, bottom: 10.0),
+      child: Row( children: [ SizedBox(width: MediaQuery.of(context).size.width/1.60, child: Text(AppLocalizations.of(context)!.limitseconds, style: const TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),)),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            icon: Icon(Icons.remove, color: Theme.of(context).iconTheme.color,),
+            onPressed: () { 
+              if ( int.parse(paramProvider.limit_round_seconds)-1 < 0 ) return;
+              paramProvider.setParam('limit_round_seconds',(int.parse(paramProvider.limit_round_seconds) - 1).toString());
+            },
+          ),
+          Text(paramProvider.limit_round_seconds, style: const TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold)),
+          IconButton(
+            icon: Icon(Icons.add, color: Theme.of(context).iconTheme.color),
+            onPressed: () { 
+              if ( int.parse(paramProvider.limit_round_seconds)+1 > 59 ) return;
+              paramProvider.setParam('limit_round_seconds',(int.parse(paramProvider.limit_round_seconds) + 1).toString());
+            },
+          ),
+        ],
+      ),
+                ])),
+
 
         ],)
 

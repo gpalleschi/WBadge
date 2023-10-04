@@ -55,5 +55,7 @@
     "msgalarmlunch" : "Vuoi Attivare l''allarme di fine mensa alle {timeToAlarm} ?",
     "timerendlunch" : "Fine Mensa",
     "warning" : "Warning",
-    "version" : "Versione"
+    "version" : "Versione",
+    "roundseconds" : "Arrotondamento minuti",
+    "limitseconds" : "Limite secondi arrot. eccesso minuti"
 }

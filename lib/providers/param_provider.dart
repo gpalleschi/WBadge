@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class ParamProvider extends ChangeNotifier {
 
   // Version to change
-  String version = "1.0.5";
+  String version = "1.0.6";
   String skyballs = "Skyballs 2023";
 
   bool flagLoad = false; 
@@ -47,6 +47,8 @@ class ParamProvider extends ChangeNotifier {
 
   bool check_alarm_caf = false;
   bool check_tot_breaks = false;
+  bool round_seconds = false;
+  String limit_round_seconds = '30';
   String max_tot_breaks = '0';
   int max_incr_tot_breaks = 9;
   String total_day = '08:38';
@@ -80,9 +82,9 @@ class ParamProvider extends ChangeNotifier {
 
   }
 
-  Future<String> getParam(String name, String defaultValue) async {
+  Future<String> getParam(String name, String defaultValue, String type) async {
 
-    final ret = await DBProvider.db.getSettingString(name); 
+    final ret = await DBProvider.db.getSettingString(name, defaultValue, type); 
 
     // print('Param : $name value : [$ret]');
 
@@ -111,6 +113,12 @@ class ParamProvider extends ChangeNotifier {
            break;
       case 'max_tot_breaks':
            max_tot_breaks = value;
+           break;
+      case 'round_seconds':
+           round_seconds = (value == 'true') ? true : false;
+           break;
+      case 'limit_round_seconds':
+           limit_round_seconds = value;
            break;
       case 'total_day':
            total_day = value;
@@ -148,21 +156,23 @@ class ParamProvider extends ChangeNotifier {
   }
 
   Future<bool> setParams() async {
-       language = await getParam('language', language);
-       selectedTheme = await getParam('theme', selectedTheme);
+       language = await getParam('language', language, 'TEXT');
+       selectedTheme = await getParam('theme', selectedTheme, 'TEXT');
        currentThemeData = themes[selectedTheme]!;
-       total_day = await getParam('total_day', total_day);
-       min_cafeteria = await getParam('min_cafeteria', min_cafeteria);
-       max_cafeteria = await getParam('max_cafeteria', max_cafeteria);
-       min_cont_cafeteria = await getParam('min_cont_cafeteria', min_cont_cafeteria);
-       max_cont_cafeteria = await getParam('max_cont_cafeteria', max_cont_cafeteria);
-       min_time_entrance = await getParam('min_time_entrance', min_time_entrance);
+       total_day = await getParam('total_day', total_day, 'TEXT');
+       min_cafeteria = await getParam('min_cafeteria', min_cafeteria, 'TEXT');
+       max_cafeteria = await getParam('max_cafeteria', max_cafeteria, 'TEXT');
+       min_cont_cafeteria = await getParam('min_cont_cafeteria', min_cont_cafeteria, 'TEXT');
+       max_cont_cafeteria = await getParam('max_cont_cafeteria', max_cont_cafeteria, 'TEXT');
+       min_time_entrance = await getParam('min_time_entrance', min_time_entrance, 'TEXT');
        min_hour_entrance = int.parse(min_time_entrance.split(":")[0]);
        min_hour_entrance = int.parse(min_time_entrance.split(":")[1]);
-       min_time_exit = await getParam('min_time_exit', min_time_exit);
-       check_tot_breaks = await getParam('check_tot_breaks', check_tot_breaks.toString()) == 'false' ? false : true;
-       check_alarm_caf = await getParam('check_alarm_caf', check_alarm_caf.toString()) == 'false' ? false : true;
-       max_tot_breaks = await getParam('max_tot_breaks', max_tot_breaks);
+       min_time_exit = await getParam('min_time_exit', min_time_exit,'TEXT');
+       check_tot_breaks = await getParam('check_tot_breaks', check_tot_breaks.toString(),'BOOLEAN') == 'false' ? false : true;
+       check_alarm_caf = await getParam('check_alarm_caf', check_alarm_caf.toString(),'BOOLEAN') == 'false' ? false : true;
+       max_tot_breaks = await getParam('max_tot_breaks', max_tot_breaks,'INT');
+       round_seconds = await getParam('round_seconds', round_seconds.toString(),'BOOLEAN') == 'false' ? false : true;
+       limit_round_seconds = await getParam('limit_round_seconds', limit_round_seconds,'INT');
        flagLoad = false;
        notifyListeners();
        return true;

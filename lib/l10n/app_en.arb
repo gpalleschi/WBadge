@@ -55,5 +55,7 @@
     "msgalarmlunch" : "Do you want to activate the end of lunch alarm at {timeToAlarm} ?",
     "timerendlunch" : "End Lunch",
     "warning" : "Warning",
-    "version" : "Version"
+    "version" : "Version",
+    "roundseconds" : "Round Minutes",
+    "limitseconds" : "Limit seconds rounding up minutes"
 }
